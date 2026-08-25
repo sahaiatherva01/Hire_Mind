@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HireMind — Practice placements. Simulate getting hired.</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/pages.css">
+</head>
+<body class="page">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand"><span class="brand-mark"></span> HireMind</div>
+    <nav class="nav-links">
+      <a href="/#modes">How it works</a>
+      <a href="/login.html">Log in</a>
+      <a href="/signup.html" class="btn btn-primary btn-sm">Get started</a>
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+  <section class="hero shell">
+    <div class="hero-eyebrow">● live simulation engine</div>
+    <h1>It doesn't just ask interview questions.<br>It simulates actually getting hired.</h1>
+    <p class="lead">Practice every placement round independently, or step into a full voice-based hiring
+      process where each round unlocks only after you clear the one before it.</p>
+    <div class="hero-actions">
+      <a href="/signup.html" class="btn btn-primary">Start practicing — free</a>
+      <a href="#modes" class="btn btn-secondary">See how it works</a>
+    </div>
+  </section>
+
+  <section class="shell" id="modes">
+    <div class="mode-split">
+      <div class="mode-panel">
+        <span class="status-light is-unlocked"></span>
+        <h3>Practice Mode</h3>
+        <p class="text-dim">Every round is open, always. Drill the one skill that's weak this week.</p>
+        <ul>
+          <li>Aptitude, DSA, Technical, Project Defense, HR</li>
+          <li>Real-time correctness &amp; scoring</li>
+          <li>Weak-area detection and targeted retry</li>
+          <li>Full attempt history</li>
+        </ul>
+      </div>
+      <div class="mode-panel">
+        <span class="status-light is-cleared"></span>
+        <h3>Simulation Mode</h3>
+        <p class="text-dim">A real hiring process, end to end. The backend — not you, not the UI — decides
+          when a round unlocks.</p>
+        <ul>
+          <li>Resume Screening → Aptitude → DSA → Technical → Project Defense → HR</li>
+          <li>Each round has its own cutoff</li>
+          <li>Fail a round → it locks → you retry until you clear it</li>
+          <li>Final hiring report at the end</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell center" style="padding: 40px 0 80px;">
+    <h2>Two rounds are live right now</h2>
+    <p class="text-dim" style="max-width:480px;margin:0 auto 28px;">Aptitude and DSA are fully wired end to end —
+      real scoring, real cutoffs, real progression. Technical, Project Defense, HR, and voice interviews are next.</p>
+    <a href="/signup.html" class="btn btn-primary">Create your account</a>
+  </section>
+</main>
+
+<footer class="shell" style="padding: 24px 0; border-top: 1px solid var(--border); color: var(--text-faint); font-size: 0.82rem;">
+  HireMind — MVP1 build. Practice Mode is unlocked for everyone; Simulation Mode enforces cutoffs server-side.
+</footer>
+
+</body>
+</html>

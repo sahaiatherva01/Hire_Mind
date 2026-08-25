@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aptitude Round — HireMind</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/pages.css">
+</head>
+<body class="page">
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/dashboard.html" class="brand"><span class="brand-mark"></span> HireMind</a>
+    <nav class="nav-links">
+      <span class="pill" id="mode-pill">PRACTICE</span>
+      <div class="timer" id="timer">--:--</div>
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+  <div class="shell" style="max-width: 720px;">
+
+    <!-- Intro / start -->
+    <div id="intro-view" class="card center" style="padding:48px;">
+      <h1>Aptitude Round</h1>
+      <p class="text-dim">Quantitative, logical, and verbal reasoning. 8 questions, 15 minutes.</p>
+      <p class="text-faint" id="intro-mode-note" style="font-size:0.85rem;"></p>
+      <button class="btn btn-primary" id="start-btn">Start round</button>
+    </div>
+
+    <!-- Question view -->
+    <div id="question-view" style="display:none;">
+      <div class="q-progress" id="q-progress"></div>
+      <div class="q-progress-bar"><div class="q-progress-fill" id="q-progress-fill"></div></div>
+
+      <div class="card question-card">
+        <span class="pill" id="q-topic-pill" style="margin-bottom:14px;"></span>
+        <h2 id="q-text"></h2>
+        <div id="q-options" style="margin-top: 20px;"></div>
+      </div>
+
+      <div class="row-between" style="margin-top: 20px;">
+        <button class="btn btn-ghost" id="prev-btn">← Previous</button>
+        <button class="btn btn-primary" id="next-btn">Next →</button>
+        <button class="btn btn-primary" id="submit-btn" style="display:none;">Submit round</button>
+      </div>
+    </div>
+
+    <!-- Result view -->
+    <div id="result-view" style="display:none;">
+      <div class="card score-hero">
+        <div class="big-score" id="result-score">--</div>
+        <div class="verdict" id="result-verdict"></div>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <h3 style="font-size:0.95rem; margin-bottom:14px;">Score breakdown</h3>
+        <div class="breakdown-row"><span>Accuracy (60%)</span><span class="val" id="bd-accuracy"></span></div>
+        <div class="breakdown-row"><span>Speed (20%)</span><span class="val" id="bd-speed"></span></div>
+        <div class="breakdown-row"><span>Difficulty (20%)</span><span class="val" id="bd-difficulty"></span></div>
+        <div class="breakdown-row"><span>Correct answers</span><span class="val" id="bd-correct"></span></div>
+      </div>
+
+      <div class="card" id="weak-areas-card" style="margin-top:20px; display:none;">
+        <h3 style="font-size:0.95rem; margin-bottom:14px;">Weak areas</h3>
+        <div id="weak-topics"></div>
+      </div>
+
+      <div class="card" style="margin-top:20px;">
+        <h3 style="font-size:0.95rem; margin-bottom:14px;">Question review</h3>
+        <div id="review-list" class="stack-16"></div>
+      </div>
+
+      <div class="row gap-12" style="margin-top: 24px;">
+        <a href="/dashboard.html" class="btn btn-secondary">Back to dashboard</a>
+        <button class="btn btn-primary" id="retry-btn">Retry round</button>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<script src="/js/api.js"></script>
+<script src="/js/aptitude.js"></script>
+</body>
+</html>
