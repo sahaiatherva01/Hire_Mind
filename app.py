@@ -92,10 +92,6 @@ def create_app():
 
 
 app = create_app()
-
 if __name__ == "__main__":
-    port = Config.PORT
-    print(f"==================================================")
-    print(f"🚀 HireMind AI Platform running at http://127.0.0.1:{port}")
-    print(f"==================================================")
-    app.run(host="0.0.0.0", port=port, debug=Config.DEBUG)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
