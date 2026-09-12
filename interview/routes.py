@@ -13,10 +13,34 @@ orchestrator = InterviewOrchestrator()
 
 
 # --- Live Interview Simulator Endpoints ---
+@interview_bp.route("/api/interview/generate-questions", methods=["POST"])
+def generate_questions():
+    data = request.get_json(silent=True) or {}
+    role = data.get("target_role") or data.get("role", "Software Engineer")
+    stage = data.get("stage", "technical")
+    user_id = session.get("user_id") or data.get("user_id", "u-dev-001")
+
+    session_data = orchestrator.start_session(user_id=user_id, role=role, stage=stage)
+    session_data["questions_count"] = session_data.get("total_questions_planned", 3)
+    return jsonify(session_data), 200
+
+
 @interview_bp.route("/api/interview/start", methods=["POST"])
 def start_interview():
     data = request.get_json(silent=True) or {}
-    role = data.get("role", "Software Engineer")
+    session_id = data.get("session_id")
+    if session_id:
+        sess = db_client.get_interview_session(session_id)
+        turns = db_client.get_session_turns(session_id)
+        first_q = turns[0].get("content") if turns else "Can you walk me through your technical background and experience?"
+        return jsonify({
+            "session_id": session_id,
+            "current_question": first_q,
+            "question_id": turns[0].get("id") if turns else "q-1",
+            "role": sess.get("role", "Software Engineer") if sess else "Software Engineer"
+        }), 200
+
+    role = data.get("role") or data.get("target_role", "Software Engineer")
     stage = data.get("stage", "technical")
     user_id = session.get("user_id") or data.get("user_id", "u-dev-001")
 
@@ -29,7 +53,7 @@ def start_interview():
 def submit_answer():
     data = request.get_json(silent=True) or {}
     session_id = data.get("session_id")
-    answer = data.get("answer")
+    answer = data.get("answer") or data.get("answer_text")
     user_id = session.get("user_id") or data.get("user_id", "u-dev-001")
 
     if not session_id or not answer:
@@ -37,6 +61,27 @@ def submit_answer():
 
     result = orchestrator.process_candidate_answer(session_id=session_id, answer=answer, user_id=user_id)
     return jsonify(result), 200
+
+
+@interview_bp.route("/api/interview/end", methods=["POST"])
+def end_interview():
+    data = request.get_json(silent=True) or {}
+    session_id = data.get("session_id")
+    user_id = session.get("user_id") or data.get("user_id", "u-dev-001")
+    if not session_id:
+        return jsonify({"error": "Missing session_id."}), 400
+
+    sess = db_client.get_interview_session(session_id) or {}
+    turns = db_client.get_session_turns(session_id)
+    final_report = orchestrator.eval_agent.generate_final_report(
+        session_turns=turns,
+        stage=sess.get("stage", "technical"),
+        role=sess.get("role", "Software Engineer"),
+        user_id=user_id,
+        session_id=session_id
+    )
+    db_client.save_interview_evaluation(session_id, final_report["result"])
+    return jsonify({"evaluation": final_report["result"]}), 200
 
 
 @interview_bp.route("/api/interview/session/<session_id>", methods=["GET"])
@@ -123,7 +168,19 @@ def get_dsa_problems():
     return jsonify([]), 200
 
 
+@interview_bp.route("/api/dsa/problems/<int:problem_id>", methods=["GET"])
+def get_dsa_problem_detail(problem_id: int):
+    dsa_path = Config.DATA_DIR / "dsa_problems.json"
+    if os.path.exists(dsa_path):
+        with open(dsa_path, "r", encoding="utf-8") as f:
+            for p in json.load(f):
+                if p.get("id") == problem_id:
+                    return jsonify({k: v for k, v in p.items() if k != "hidden_tests"}), 200
+    return jsonify({"error": "Problem not found"}), 404
+
+
 @interview_bp.route("/api/dsa/run", methods=["POST"])
+@interview_bp.route("/api/dsa/submit", methods=["POST"])
 def run_dsa_code():
     data = request.get_json(silent=True) or {}
     problem_id = data.get("problem_id", 1)

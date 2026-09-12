@@ -80,15 +80,18 @@ async function loadSimulationTrack(userId, track = 'default') {
     railEl.innerHTML = `
       <div class="track-rail">
         ${data.rounds.map((r, i) => {
-          const href = r.unlocked ? roundLinks[r.round_name] || '#' : 'javascript:void(0);';
+          const roundKey = r.round_name || r.round_id;
+          const isDone = r.status === 'completed' || r.status === 'cleared';
+          const href = r.unlocked ? roundLinks[roundKey] || '#' : 'javascript:void(0);';
+          const displayName = r.display_name || (roundKey ? roundKey.replace('_', ' ').toUpperCase() : `Round ${i+1}`);
           return `
-            <a href="${href}" class="track-step ${r.status}" title="${r.status === 'locked' ? 'Locked — Clear previous round cutoff to unlock' : 'Click to start ' + r.display_name}">
+            <a href="${href}" class="track-step ${isDone ? 'cleared' : r.status}" title="${r.status === 'locked' ? 'Locked — Clear previous round cutoff to unlock' : 'Click to start ' + displayName}">
               <div class="track-node">
-                ${r.status === 'cleared' ? '✓' : roundIcons[r.round_name] || (i + 1)}
+                ${isDone ? '✓' : roundIcons[roundKey] || (i + 1)}
               </div>
-              <span class="track-label">${r.display_name}</span>
-              <span class="badge ${r.status === 'cleared' ? 'badge-green' : (r.status === 'unlocked' ? 'badge-amber' : 'badge-subtle')}" style="font-size:0.7rem;">
-                ${r.status === 'cleared' ? r.score + '% (Cutoff ' + r.cutoff + '%)' : (r.status === 'unlocked' ? 'Unlocked (' + r.cutoff + '% Cutoff)' : 'Locked')}
+              <span class="track-label">${displayName}</span>
+              <span class="badge ${isDone ? 'badge-green' : (r.status === 'unlocked' ? 'badge-amber' : 'badge-subtle')}" style="font-size:0.7rem;">
+                ${isDone ? (r.score !== null ? r.score + '% (Passed)' : 'Completed') : (r.status === 'unlocked' ? 'Unlocked (' + r.cutoff + '% Cutoff)' : 'Locked')}
               </span>
             </a>
           `;

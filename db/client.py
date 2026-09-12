@@ -7,6 +7,8 @@ from pathlib import Path
 
 from config import Config
 
+from werkzeug.security import generate_password_hash, check_password_hash
+
 try:
     from supabase import create_client, Client
 except ImportError:
@@ -37,6 +39,27 @@ class SupabaseService:
 
     def is_configured(self) -> bool:
         return self.supabase is not None
+
+    def check_remote_schema(self) -> Dict[str, Any]:
+        """Validates if tables defined in db/schema.sql are present in the remote Supabase project."""
+        if not self.supabase:
+            return {"configured": False, "status": "offline_local", "message": "Operating in local JSON fallback mode."}
+        try:
+            self.supabase.table("profiles").select("id").limit(1).execute()
+            return {"configured": True, "status": "schema_ready", "message": "Supabase connection and schema verified."}
+        except Exception as e:
+            err_msg = str(e)
+            print("=" * 65)
+            print("⚠️ [SupabaseService] Remote Supabase connected but tables are missing!")
+            print(f"Details: {err_msg}")
+            print("👉 Run the SQL in db/schema.sql in your Supabase SQL editor.")
+            print("=" * 65)
+            return {
+                "configured": True,
+                "status": "schema_missing",
+                "message": "Connected to Supabase, but schema tables are missing. Please execute db/schema.sql.",
+                "error": err_msg
+            }
 
     def _read_local_db(self) -> Dict[str, Any]:
         local_path = Config.LOCAL_DB_PATH
@@ -89,10 +112,11 @@ class SupabaseService:
                 raise ValueError("User with this email already exists.")
 
         user_id = f"usr_{uuid.uuid4().hex[:10]}"
+        pwd_hash = generate_password_hash(password)
         user_data = {
             "id": user_id,
             "email": email,
-            "password": password,
+            "password_hash": pwd_hash,
             "full_name": full_name,
             "role": role,
             "company_id": company_id,
@@ -110,8 +134,32 @@ class SupabaseService:
 
         db = self._read_local_db()
         for u in db["users"]:
-            if u.get("email") == email and (u.get("password") == password or u.get("password_hash") == password):
-                return {"user": {k: v for k, v in u.items() if k not in ["password", "password_hash"]}, "session": {"access_token": f"token_{u.get('id')}"}}
+            if u.get("email") == email:
+                stored_hash = u.get("password_hash")
+                valid = False
+                if stored_hash:
+                    try:
+                        valid = check_password_hash(stored_hash, password)
+                    except Exception:
+                        valid = False
+                    if not valid and stored_hash == password:
+                        # Auto-upgrade legacy plaintext string to genuine werkzeug hash
+                        u["password_hash"] = generate_password_hash(password)
+                        self._write_local_db(db)
+                        valid = True
+                elif u.get("password"):
+                    if u.get("password") == password:
+                        u["password_hash"] = generate_password_hash(password)
+                        del u["password"]
+                        self._write_local_db(db)
+                        valid = True
+
+                if valid:
+                    return {
+                        "user": {k: v for k, v in u.items() if k not in ["password", "password_hash"]},
+                        "session": {"access_token": f"token_{u.get('id')}"}
+                    }
+                break
         raise ValueError("Invalid email or password.")
 
     def get_profile(self, user_id: str) -> Optional[Dict[str, Any]]:
@@ -125,7 +173,36 @@ class SupabaseService:
         return None
 
     # --- Resumes ---
-    def save_resume(self, user_id: str, filename: str, parsed_text: str, structured_data: Dict[str, Any], ats_score: Optional[float] = None) -> str:
+    def upload_resume_file(self, file_bytes: bytes, filename: str, user_id: str) -> Optional[str]:
+        """
+        Uploads binary resume file to Supabase Storage bucket 'resumes' for persistent storage across dyno restarts.
+        Falls back to local disk when operating offline.
+        """
+        clean_fn = f"{int(datetime.now(timezone.utc).timestamp())}_{filename.replace(' ', '_')}"
+        storage_path = f"{user_id}/{clean_fn}"
+        if self.supabase:
+            try:
+                self.supabase.storage.from_("resumes").upload(
+                    path=storage_path,
+                    file=file_bytes,
+                    file_options={"content-type": "application/octet-stream", "upsert": "true"}
+                )
+                return storage_path
+            except Exception as e:
+                print(f"[SupabaseService] Notice: Supabase storage upload skipped ({e})")
+
+        # Local fallback filesystem storage
+        upload_dir = Config.UPLOAD_FOLDER / user_id
+        os.makedirs(upload_dir, exist_ok=True)
+        local_path = upload_dir / clean_fn
+        try:
+            with open(local_path, "wb") as f:
+                f.write(file_bytes)
+            return str(local_path)
+        except Exception:
+            return None
+
+    def save_resume(self, user_id: str, filename: str, parsed_text: str, structured_data: Dict[str, Any], ats_score: Optional[float] = None, file_url: Optional[str] = None) -> str:
         resume_id = str(uuid.uuid4())
         record = {
             "id": resume_id,
@@ -134,6 +211,7 @@ class SupabaseService:
             "parsed_text": parsed_text,
             "structured_data": structured_data,
             "ats_score": ats_score,
+            "file_url": file_url,
             "created_at": datetime.now(timezone.utc).isoformat()
         }
         if self.supabase:

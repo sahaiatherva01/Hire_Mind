@@ -24,13 +24,16 @@ def scan_resume():
     jd_text = request.form.get("job_description") or request.form.get("jd_text")
     user_id = session.get("user_id") or request.form.get("user_id") or "u-dev-001"
 
+    file_url = None
     if "file" in request.files:
         file = request.files["file"]
         if not file.filename:
             return jsonify({"error": "Empty filename provided."}), 400
         filename = file.filename
         try:
-            parsed_data = parse_document(file.read(), filename)
+            file_bytes = file.read()
+            parsed_data = parse_document(file_bytes, filename)
+            file_url = db_client.upload_resume_file(file_bytes, filename, user_id)
         except ValueError as ve:
             return jsonify({"error": str(ve)}), 400
         except Exception as e:
@@ -56,15 +59,17 @@ def scan_resume():
     # Run multi-agent scan
     report = orchestrator.run_scan(parsed_data=parsed_data, jd_text=jd_text, user_id=user_id)
 
-    # Persist to database
+    # Persist to database (including Supabase Storage file_url if available)
     resume_id = db_client.save_resume(
         user_id=user_id,
         filename=filename,
         parsed_text=parsed_data.get("raw_text", ""),
         structured_data=report,
-        ats_score=report["score"]
+        ats_score=report["score"],
+        file_url=file_url
     )
     report["resume_id"] = resume_id
+    report["file_url"] = file_url
 
     # Update round 1 score in user simulation progress
     prog = db_client.get_user_progress(user_id)

@@ -6,9 +6,15 @@ if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
 from app import create_app
+from db.seed_demo_user import seed_demo_user
 
 app = create_app()
 client = app.test_client()
+
+
+def setup_module(module):
+    """Ensure candidate@hiremind.ai exists before tests execute on fresh db."""
+    seed_demo_user()
 
 
 def test_all_routes():

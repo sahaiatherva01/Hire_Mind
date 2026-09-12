@@ -20,6 +20,7 @@ TEMPLATES_DIR = BASE_DIR / "templates"
 
 
 def create_app():
+    Config.log_env_status()
     app = Flask(__name__, static_folder=str(STATIC_DIR))
     app.config.from_object(Config)
     CORS(app)
@@ -33,10 +34,16 @@ def create_app():
 
     @app.route("/api/health", methods=["GET"])
     def health():
+        supabase_ok = db_client.is_configured()
+        gemini_ok = get_gemini_client() is not None
+        schema_info = db_client.check_remote_schema()
         return jsonify({
             "status": "healthy",
-            "supabase_connected": db_client.is_configured(),
-            "gemini_active": get_gemini_client() is not None,
+            "supabase_connected": supabase_ok,
+            "gemini_active": gemini_ok,
+            "gemini_model": Config.DEFAULT_MODEL,
+            "schema_status": schema_info.get("status"),
+            "schema_message": schema_info.get("message"),
             "architecture": "multi_agent_rag_orchestrated",
             "modules": {
                 "resume": "Module A: Resume Intelligence & ATS+ 105pt",

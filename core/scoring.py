@@ -166,6 +166,15 @@ def get_round_progression_status(user_id: str, track: str = "default") -> Dict[s
     order = Config.ROUND_ORDER
     previous_passed = True
 
+    display_names = {
+        "resume_screening": "Resume Screening",
+        "aptitude": "Aptitude Assessment",
+        "dsa": "DSA Sandbox",
+        "technical": "Technical Round",
+        "project_defense": "Project Defense",
+        "hr": "HR & Culture Fit"
+    }
+
     for idx, round_name in enumerate(order):
         cutoff = Config.DEFAULT_CUTOFFS.get(round_name, 70)
         score = round_scores.get(round_name)
@@ -184,8 +193,11 @@ def get_round_progression_status(user_id: str, track: str = "default") -> Dict[s
 
         rounds_data.append({
             "round_id": round_name,
+            "round_name": round_name,
+            "display_name": display_names.get(round_name, round_name.replace('_', ' ').title()),
             "round_index": idx + 1,
             "status": status,
+            "unlocked": status in ["unlocked", "completed"],
             "score": score,
             "cutoff": cutoff,
             "passed": passed
