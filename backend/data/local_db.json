@@ -1,0 +1,61 @@
+{
+  "users": [
+    {
+      "id": "u-dev-001",
+      "email": "candidate@hiremind.ai",
+      "password_hash": "devpass",
+      "full_name": "Dev Candidate",
+      "target_role": "Software Engineer",
+      "preferred_track": "default",
+      "created_at": "2026-09-01T00:00:00Z"
+    },
+    {
+      "id": "u-rec-001",
+      "email": "recruiter@techcorp.com",
+      "password_hash": "devpass",
+      "full_name": "Sarah Recruiter",
+      "role": "recruiter",
+      "company_id": "comp-techcorp-101",
+      "company_name": "TechCorp Global",
+      "created_at": "2026-09-01T00:00:00Z"
+    }
+  ],
+  "round_progress": [
+    {
+      "id": "rp-001",
+      "user_id": "u-dev-001",
+      "round_name": "resume_screening",
+      "mode": "simulation",
+      "score": 85,
+      "cutoff": 60,
+      "passed": true,
+      "breakdown": {"overall_score": 85},
+      "attempts": 1,
+      "completed_at": "2026-09-01T00:00:00Z"
+    }
+  ],
+  "interview_sessions": [],
+  "question_bank": [],
+  "transcript": [],
+  "resumes": [],
+  "recruit_jobs": [
+    {
+      "id": "job-dev-101",
+      "company_id": "comp-techcorp-101",
+      "title": "Senior Backend Engineer",
+      "department": "Infrastructure",
+      "jd_text": "We are looking for a Senior Backend Engineer to design scalable microservices in Python/Flask and PostgreSQL with high-throughput API endpoints and distributed caching.",
+      "parsed_requirements": {
+        "required_skills": ["Python", "Flask", "PostgreSQL", "REST API", "Docker"],
+        "preferred_skills": ["Redis", "AWS", "Microservices"],
+        "seniority": "senior",
+        "domain": "Cloud Infrastructure"
+      },
+      "status": "active",
+      "created_at": "2026-09-01T00:00:00Z"
+    }
+  ],
+  "recruit_candidates": [],
+  "recruit_assessments": [],
+  "evaluations": []
+}

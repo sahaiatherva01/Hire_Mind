@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HireMind AI — Candidate Readiness & Progression Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      <span style="color:var(--color-primary);">⚡</span> HireMind <span class="brand-badge">Dashboard</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/dashboard" class="active">Roadmap</a></li>
+      <li><a href="/resume">Resume ATS+</a></li>
+      <li><a href="/interview">AI Interviewer</a></li>
+      <li><a href="/practice/aptitude.html">Aptitude</a></li>
+      <li><a href="/practice/dsa.html">DSA Sandbox</a></li>
+      <li><a href="/recruit">Recruiter Portal</a></li>
+    </ul>
+    <div class="nav-actions">
+      <span style="color:var(--text-muted); font-size:0.9rem;" id="user-greeting">Candidate</span>
+      <a href="/login" class="btn btn-outline" style="padding:0.4rem 0.8rem; font-size:0.85rem;">Logout</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    
+    <!-- Readiness Score Hero Card -->
+    <section class="readiness-hero">
+      <div>
+        <div class="badge badge-purple" style="margin-bottom:0.75rem;">AI Bar-Raiser Aggregated Metric</div>
+        <h1 style="font-size:2.2rem; margin-bottom:0.5rem;">Overall Placement Readiness</h1>
+        <p style="color:var(--text-muted); max-width:560px; font-size:1.05rem;" id="readiness-tier">
+          Evaluating cross-module candidate performance...
+        </p>
+      </div>
+      <div class="readiness-score-ring">
+        <div class="readiness-value mono-num" id="readiness-score">--</div>
+      </div>
+    </section>
+
+    <!-- Category Performance Sub-meters -->
+    <section style="margin-bottom:2.5rem;">
+      <h4 style="color:#fff; margin-bottom:1rem;">Competency Breakdown</h4>
+      <div class="grid-3" id="readiness-breakdown">
+        <!-- Dynamically rendered by dashboard.js -->
+      </div>
+    </section>
+
+    <!-- Simulation Track Rail Section -->
+    <section class="glass-card" style="margin-bottom:2.5rem; padding:2rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+        <div>
+          <h2>Simulation Mode Track Rail</h2>
+          <p style="color:var(--text-muted); font-size:0.9rem;">
+            Rounds unlock sequentially only after clearing the previous round's cutoff score.
+          </p>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <label style="font-size:0.85rem; color:var(--text-muted);">Target Company Track:</label>
+          <select id="track-select" style="background:var(--bg-tertiary); color:#fff; border:1px solid var(--border-glass); padding:0.45rem 0.85rem; border-radius:var(--radius-sm); font-family:var(--font-sans);">
+            <option value="default">Default Tech Track (70% Cutoff)</option>
+            <option value="amazon">Amazon Bar-Raiser (75-80% Cutoff)</option>
+            <option value="startup">High-Growth Startup (65% Cutoff)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="track-rail-container">
+        <!-- Dynamically rendered by dashboard.js -->
+      </div>
+    </section>
+
+    <!-- Practice Mode Section (All Unlocked) -->
+    <section style="margin-bottom:2.5rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+        <div>
+          <h2>Open Practice Mode</h2>
+          <p style="color:var(--text-muted); font-size:0.9rem;">No cutoffs, no gates. Practice any competency at your own pace.</p>
+        </div>
+        <span class="badge badge-green">Unlimited Practice</span>
+      </div>
+
+      <div class="grid-3">
+        <div class="glass-card">
+          <div style="font-size:1.8rem; margin-bottom:0.5rem;">📄</div>
+          <h4>Resume ATS+ Optimization</h4>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin:0.5rem 0 1.25rem;">
+            Analyze layout, normalize skills against taxonomy, and rewrite bullets into Google XYZ format.
+          </p>
+          <a href="/resume" class="btn btn-outline" style="width:100%;">Launch ATS+ Engine</a>
+        </div>
+
+        <div class="glass-card">
+          <div style="font-size:1.8rem; margin-bottom:0.5rem;">🧠</div>
+          <h4>Aptitude & Logic Drills</h4>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin:0.5rem 0 1.25rem;">
+            Quantitative, logical reasoning, and verbal practice drills with step-by-step explanations.
+          </p>
+          <a href="/practice/aptitude.html?mode=practice" class="btn btn-outline" style="width:100%;">Practice Aptitude</a>
+        </div>
+
+        <div class="glass-card">
+          <div style="font-size:1.8rem; margin-bottom:0.5rem;">💻</div>
+          <h4>DSA Coding Sandbox</h4>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin:0.5rem 0 1.25rem;">
+            Arrays, trees, dynamic programming problems in isolated Python execution judge.
+          </p>
+          <a href="/practice/dsa.html?mode=practice" class="btn btn-outline" style="width:100%;">Solve DSA Problems</a>
+        </div>
+
+        <div class="glass-card">
+          <div style="font-size:1.8rem; margin-bottom:0.5rem;">⚡</div>
+          <h4>Technical Deep Dive</h4>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin:0.5rem 0 1.25rem;">
+            Interactive live voice interview with dynamic cross-questioning on your tech stack.
+          </p>
+          <a href="/interview?mode=practice" class="btn btn-outline" style="width:100%;">Start Tech Mock</a>
+        </div>
+
+        <div class="glass-card">
+          <div style="font-size:1.8rem; margin-bottom:0.5rem;">🛡️</div>
+          <h4>Project Architecture Defense</h4>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin:0.5rem 0 1.25rem;">
+            Defend system design decisions, tradeoffs, and debugging war stories from your resume.
+          </p>
+          <a href="/interview?mode=practice" class="btn btn-outline" style="width:100%;">Defend Projects</a>
+        </div>
+
+        <div class="glass-card">
+          <div style="font-size:1.8rem; margin-bottom:0.5rem;">🤝</div>
+          <h4>STAR Behavioral & HR</h4>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin:0.5rem 0 1.25rem;">
+            Practice Amazon Leadership Principles and situational answers with feedback.
+          </p>
+          <a href="/interview?mode=practice" class="btn btn-outline" style="width:100%;">Practice Behavioral</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Agent Evaluations & Explainability Citations -->
+    <section class="glass-card" style="padding:2rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
+        <div>
+          <h2>🛡️ Agent Explainability & RAG Audit Feed</h2>
+          <p style="color:var(--text-muted); font-size:0.88rem;">Live audit stream of specialist agent outputs and knowledge base citations.</p>
+        </div>
+        <span class="badge badge-blue">Audit Log</span>
+      </div>
+      <div id="evaluations-list">
+        <!-- Dynamically rendered by dashboard.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+[
+  {
+    "id": "rbp-001",
+    "category": "xyz_metric_bullet",
+    "domain_tags": ["Backend", "Performance", "Database"],
+    "rule_description": "Follow the Google XYZ formula: Accomplished [X] as measured by [Y], by doing [Z]. Always lead with a strong active verb, provide explicit metrics (percentages, ms latency, throughput), and detail the technical mechanism.",
+    "before_example": "Worked on backend APIs and made database queries faster.",
+    "after_example": "Optimized SQL indexing and query execution plans across 12 high-traffic PostgreSQL endpoints, reducing p99 API response latency by 42% (from 320ms to 185ms) under 15k peak RPM.",
+    "impact_explanation": "Replaces passive task description ('worked on') with quantifiable outcome (42% latency reduction) and concrete technical mechanism (indexing and query plans)."
+  },
+  {
+    "id": "rbp-002",
+    "category": "xyz_metric_bullet",
+    "domain_tags": ["Frontend", "Web Performance", "React"],
+    "rule_description": "Quantify user-facing frontend impact using standardized Core Web Vitals or bundle size metrics.",
+    "before_example": "Built a React dashboard and improved loading speed.",
+    "after_example": "Architected dynamic code-splitting and asset lazy-loading for core React dashboard modules, cutting initial JavaScript bundle size by 35% and improving Largest Contentful Paint (LCP) from 3.8s to 1.4s.",
+    "impact_explanation": "Cites specific performance metrics (bundle size, LCP) and technical solutions (code-splitting, lazy-loading) that recruiters and hiring managers look for."
+  },
+  {
+    "id": "rbp-003",
+    "category": "xyz_metric_bullet",
+    "domain_tags": ["DevOps", "Cloud", "Cost Optimization"],
+    "rule_description": "Highlight operational efficiency, cost reductions, and deployment frequency improvements.",
+    "before_example": "Helped move our servers to Docker and AWS.",
+    "after_example": "Spearheaded containerization of 8 legacy monolithic services using Docker and automated CI/CD deployment pipelines on AWS ECS, reducing deployment release cycle from 3 days to 15 minutes and slashing cloud infrastructure expenses by $18,000 annually.",
+    "impact_explanation": "Demonstrates business ROI (cost savings, velocity improvement) alongside infrastructure expertise."
+  },
+  {
+    "id": "rbp-004",
+    "category": "strong_action_verbs",
+    "domain_tags": ["General", "Engineering"],
+    "rule_description": "Never use weak or passive verbs such as 'Assisted with', 'Responsible for', 'Helped', or 'Participated in'. Use high-impact verbs: 'Architected', 'Engineered', 'Spearheaded', 'Streamlined', 'Overhauled', 'Automated'.",
+    "before_example": "Responsible for maintaining unit tests and code quality.",
+    "after_example": "Automated end-to-end integration test suites with PyTest and GitHub Actions across 4 microservices, expanding code coverage from 58% to 91% and eliminating critical release regressions.",
+    "impact_explanation": "Transforms passive duty statement into proactive engineering leadership with measurable coverage gains."
+  },
+  {
+    "id": "rbp-005",
+    "category": "ats_layout_rules",
+    "domain_tags": ["ATS Formatting", "General"],
+    "rule_description": "Avoid multi-column tables, text boxes, headers/footers for key contact info, and scanned images. Standard single-column linear layout with standard section headers ('Experience', 'Education', 'Skills', 'Projects') ensures 100% ATS parser accuracy.",
+    "before_example": "Putting contact info and skills in a 2-column sidebar graphic box with custom icon glyphs.",
+    "after_example": "Single-column linear hierarchy with standard UTF-8 text headers and clear bullet points.",
+    "impact_explanation": "Legacy and modern ATS parsers (Workday, Taleo, Greenhouse) frequently drop or scramble text embedded inside complex multi-column floating boxes."
+  }
+]

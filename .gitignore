@@ -1,0 +1,184 @@
+# ==============================
+# Python
+# ==============================
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
+# ==============================
+# Environment Variables / Secrets
+# ==============================
+
+.env
+.env.*
+!.env.example
+
+# ==============================
+# Jupyter Notebook
+# ==============================
+
+.ipynb_checkpoints/
+
+# ==============================
+# IDEs / Editors
+# ==============================
+
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ==============================
+# macOS
+# ==============================
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ==============================
+# Windows
+# ==============================
+
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ==============================
+# Logs
+# ==============================
+
+*.log
+logs/
+
+# ==============================
+# Testing / Coverage
+# ==============================
+
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# ==============================
+# Type Checking / Linters
+# ==============================
+
+.mypy_cache/
+.pyre/
+.ruff_cache/
+
+# ==============================
+# AI / ML
+# ==============================
+
+# Model weights
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.h5
+*.keras
+*.safetensors
+*.bin
+
+# Training outputs
+runs/
+wandb/
+mlruns/
+checkpoints/
+
+# ==============================
+# Data
+# ==============================
+
+# Raw / processed datasets
+data/raw/
+data/processed/
+
+# Large datasets
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.feather
+
+# ==============================
+# Vector Databases / RAG
+# ==============================
+
+faiss_index/
+vectorstore/
+chroma/
+chroma_db/
+*.faiss
+*.index
+
+# ==============================
+# Generated Files
+# ==============================
+
+uploads/
+outputs/
+results/
+temp/
+tmp/
+
+# ==============================
+# Database
+# ==============================
+
+*.db
+*.sqlite
+*.sqlite3
+
+# ==============================
+# Node.js
+# ==============================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==============================
+# Build / Cache
+# ==============================
+
+.cache/
+.parcel-cache/
+.next/
+dist/
+build/
+
+# ==============================
+# Secrets / Credentials
+# ==============================
+
+*.pem
+*.key
+*.crt
+credentials.json
+service-account.json
+secrets.json

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HireMind AI — DSA Coding Sandbox & Judge</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/pages.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      <span style="color:var(--color-primary);">⚡</span> HireMind <span class="brand-badge">DSA Sandbox</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/dashboard">Roadmap</a></li>
+      <li><a href="/resume">Resume ATS+</a></li>
+      <li><a href="/interview">AI Interviewer</a></li>
+      <li><a href="/practice/aptitude.html">Aptitude</a></li>
+      <li><a href="/practice/dsa.html" class="active">DSA Sandbox</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="/dashboard" class="btn btn-outline" style="padding:0.4rem 0.8rem; font-size:0.85rem;">Dashboard</a>
+    </div>
+  </nav>
+
+  <main class="container" id="dsa-container">
+
+    <!-- Problem Selection & Info Header -->
+    <section class="glass-card" style="padding:1.25rem 1.75rem; margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center;">
+      <div style="display:flex; align-items:center; gap:1rem;">
+        <label style="font-weight:600; font-size:0.9rem; color:#fff;">Select Problem:</label>
+        <select id="dsa-problem-select" style="background:var(--bg-tertiary); color:#fff; border:1px solid var(--border-glass); padding:0.45rem 0.85rem; border-radius:var(--radius-sm); font-family:var(--font-sans); font-size:0.9rem;">
+          <!-- Dynamically populated -->
+        </select>
+      </div>
+      <div style="display:flex; gap:0.5rem;">
+        <span class="badge badge-green" id="problem-diff-badge">EASY</span>
+        <span class="badge badge-blue" id="problem-topic-badge">Arrays / Hashing</span>
+      </div>
+    </section>
+
+    <!-- DSA Split Screen IDE -->
+    <div class="dsa-ide">
+
+      <!-- Left Pane: Problem Description -->
+      <div class="glass-card" style="padding:1.75rem; overflow-y:auto; max-height:750px;">
+        <h2 id="problem-title" style="font-size:1.4rem; margin-bottom:0.75rem;">Two Sum</h2>
+        <div id="problem-statement" style="font-size:0.95rem; color:var(--text-main); line-height:1.7; margin-bottom:1.5rem;">
+          Loading statement...
+        </div>
+
+        <h4 style="color:#fff; font-size:0.95rem; margin-bottom:0.75rem;">Example Test Cases</h4>
+        <div id="problem-examples" style="margin-bottom:1.5rem;">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Right Pane: Code Editor & Execution Console -->
+      <div style="display:flex; flex-direction:column; gap:1.25rem;">
+        
+        <!-- Code Editor -->
+        <div class="editor-pane">
+          <div class="editor-header">
+            <span style="color:var(--color-accent);">Python 3 Sandbox (Resource Isolated)</span>
+            <span style="color:var(--text-subtle);">Tab: 4 spaces</span>
+          </div>
+          <textarea id="code-editor-textarea" class="code-textarea" spellcheck="false" placeholder="def solution(): ..."></textarea>
+        </div>
+
+        <!-- Action Controls & Terminal Output -->
+        <div class="glass-card" style="padding:1.25rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+            <strong style="color:#fff; font-size:0.9rem;">Execution Terminal</strong>
+            <div style="display:flex; gap:0.75rem;">
+              <button id="btn-run-code" class="btn btn-secondary" style="padding:0.45rem 1rem; font-size:0.85rem;">Run Public Tests</button>
+              <button id="btn-submit-code" class="btn btn-primary" style="padding:0.45rem 1.25rem; font-size:0.85rem;">Submit & Grade →</button>
+            </div>
+          </div>
+          <div id="test-console-output" class="terminal-box">
+            Sandbox ready. Click 'Run Public Tests' or 'Submit & Grade'.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/dsa.js"></script>
+</body>
+</html>
