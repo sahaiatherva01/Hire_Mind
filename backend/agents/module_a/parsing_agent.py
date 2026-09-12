@@ -4,7 +4,7 @@ Extracts raw text and analyzes document layout from PDF / DOCX bytes.
 """
 import io
 import docx
-import fitz  # PyMuPDF
+import pymupdf as fitz
 from typing import Dict, Any
 from agents.base_agent import BaseAgent
 
