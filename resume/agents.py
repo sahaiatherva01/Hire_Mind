@@ -18,14 +18,18 @@ class SkillExtractionAgent(BaseAgent):
         text_lower = resume_text.lower()
         for doc in evidence:
             raw = doc.get("raw_data", {})
-            canonical = raw.get("canonical_name")
+            canonical = raw.get("canonical_skill") or raw.get("canonical_name")
+            if not canonical:
+                continue
             synonyms = raw.get("synonyms", [])
-            if canonical and canonical.lower() in text_lower:
-                found_skills.append(canonical)
+            if canonical.lower() in text_lower:
+                if canonical not in found_skills:
+                    found_skills.append(canonical)
             else:
                 for syn in synonyms:
                     if syn.lower() in text_lower:
-                        found_skills.append(canonical)
+                        if canonical not in found_skills:
+                            found_skills.append(canonical)
                         break
 
         # Common tech skills regex detection

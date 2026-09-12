@@ -43,18 +43,23 @@ class SupabaseService:
         if os.path.exists(local_path):
             try:
                 with open(local_path, "r", encoding="utf-8") as f:
-                    return json.load(f)
+                    data = json.load(f)
+                    # Ensure lists for all collections
+                    for k in ["users", "resumes", "interview_sessions", "transcript", "evaluations", "round_progress", "recruit_jobs", "recruit_candidates"]:
+                        if k not in data or not isinstance(data[k], list):
+                            data[k] = []
+                    return data
             except Exception:
                 pass
         return {
-            "users": {},
-            "resumes": {},
-            "interview_sessions": {},
-            "transcripts": {},
+            "users": [],
+            "resumes": [],
+            "interview_sessions": [],
+            "transcript": [],
             "evaluations": [],
-            "user_progress": {},
-            "jobs": {},
-            "applications": {},
+            "round_progress": [],
+            "recruit_jobs": [],
+            "recruit_candidates": [],
         }
 
     def _write_local_db(self, data: Dict[str, Any]):
@@ -79,7 +84,7 @@ class SupabaseService:
             return {"user": {"id": user_id, "email": email, "full_name": full_name, "role": role, "company_id": company_id}}
 
         db = self._read_local_db()
-        for uid, u in db["users"].items():
+        for u in db["users"]:
             if u.get("email") == email:
                 raise ValueError("User with this email already exists.")
 
@@ -93,7 +98,7 @@ class SupabaseService:
             "company_id": company_id,
             "created_at": datetime.now(timezone.utc).isoformat()
         }
-        db["users"][user_id] = user_data
+        db["users"].append(user_data)
         self._write_local_db(db)
         return {"user": {"id": user_id, "email": email, "full_name": full_name, "role": role, "company_id": company_id}}
 
@@ -104,9 +109,9 @@ class SupabaseService:
             return {"user": prof.data, "session": {"access_token": res.session.access_token}}
 
         db = self._read_local_db()
-        for uid, u in db["users"].items():
-            if u.get("email") == email and u.get("password") == password:
-                return {"user": {k: v for k, v in u.items() if k != "password"}, "session": {"access_token": f"token_{uid}"}}
+        for u in db["users"]:
+            if u.get("email") == email and (u.get("password") == password or u.get("password_hash") == password):
+                return {"user": {k: v for k, v in u.items() if k not in ["password", "password_hash"]}, "session": {"access_token": f"token_{u.get('id')}"}}
         raise ValueError("Invalid email or password.")
 
     def get_profile(self, user_id: str) -> Optional[Dict[str, Any]]:
@@ -114,9 +119,9 @@ class SupabaseService:
             res = self.supabase.table("profiles").select("*").eq("id", user_id).single().execute()
             return res.data
         db = self._read_local_db()
-        user = db["users"].get(user_id)
-        if user:
-            return {k: v for k, v in user.items() if k != "password"}
+        for u in db["users"]:
+            if u.get("id") == user_id:
+                return {k: v for k, v in u.items() if k not in ["password", "password_hash"]}
         return None
 
     # --- Resumes ---
@@ -136,7 +141,7 @@ class SupabaseService:
             return resume_id
 
         db = self._read_local_db()
-        db["resumes"][resume_id] = record
+        db["resumes"].append(record)
         self._write_local_db(db)
         return resume_id
 
@@ -145,14 +150,17 @@ class SupabaseService:
             res = self.supabase.table("resumes").select("*").eq("user_id", user_id).order("created_at", desc=True).execute()
             return res.data or []
         db = self._read_local_db()
-        return [r for r in db["resumes"].values() if r.get("user_id") == user_id]
+        return [r for r in db["resumes"] if r.get("user_id") == user_id]
 
     def get_resume(self, resume_id: str) -> Optional[Dict[str, Any]]:
         if self.supabase:
             res = self.supabase.table("resumes").select("*").eq("id", resume_id).single().execute()
             return res.data
         db = self._read_local_db()
-        return db["resumes"].get(resume_id)
+        for r in db["resumes"]:
+            if r.get("id") == resume_id:
+                return r
+        return None
 
     # --- Interview Sessions ---
     def create_interview_session(self, user_id: str, role: str, stage: str = "technical", company_tag: Optional[str] = None) -> str:
@@ -171,8 +179,7 @@ class SupabaseService:
             return session_id
 
         db = self._read_local_db()
-        db["interview_sessions"][session_id] = record
-        db["transcripts"][session_id] = []
+        db["interview_sessions"].append(record)
         self._write_local_db(db)
         return session_id
 
@@ -181,7 +188,10 @@ class SupabaseService:
             res = self.supabase.table("interview_sessions").select("*").eq("id", session_id).single().execute()
             return res.data
         db = self._read_local_db()
-        return db["interview_sessions"].get(session_id)
+        for s in db["interview_sessions"]:
+            if s.get("id") == session_id:
+                return s
+        return None
 
     def add_transcript_turn(self, session_id: str, speaker: str, content: str, turn_index: int, stage: str, metadata: Optional[Dict[str, Any]] = None):
         turn_data = {
@@ -199,9 +209,7 @@ class SupabaseService:
             return
 
         db = self._read_local_db()
-        if session_id not in db["transcripts"]:
-            db["transcripts"][session_id] = []
-        db["transcripts"][session_id].append(turn_data)
+        db["transcript"].append(turn_data)
         self._write_local_db(db)
 
     def get_session_turns(self, session_id: str) -> List[Dict[str, Any]]:
@@ -209,7 +217,7 @@ class SupabaseService:
             res = self.supabase.table("transcripts").select("*").eq("session_id", session_id).order("turn_index").execute()
             return res.data or []
         db = self._read_local_db()
-        turns = db["transcripts"].get(session_id, [])
+        turns = [t for t in db["transcript"] if t.get("session_id") == session_id]
         return sorted(turns, key=lambda x: x.get("turn_index", 0))
 
     def save_interview_evaluation(self, session_id: str, evaluation_data: Dict[str, Any]):
@@ -223,12 +231,14 @@ class SupabaseService:
             return
 
         db = self._read_local_db()
-        if session_id in db["interview_sessions"]:
-            db["interview_sessions"][session_id]["status"] = "completed"
-            db["interview_sessions"][session_id]["overall_score"] = evaluation_data.get("overall_score", 0)
-            db["interview_sessions"][session_id]["evaluation_report"] = evaluation_data
-            db["interview_sessions"][session_id]["completed_at"] = datetime.now(timezone.utc).isoformat()
-            self._write_local_db(db)
+        for s in db["interview_sessions"]:
+            if s.get("id") == session_id:
+                s["status"] = "completed"
+                s["overall_score"] = evaluation_data.get("overall_score", 0)
+                s["evaluation_report"] = evaluation_data
+                s["completed_at"] = datetime.now(timezone.utc).isoformat()
+                break
+        self._write_local_db(db)
 
     # --- Agent Evaluations & Audit Trail ---
     def log_evaluation(self, agent_name: str, module: str, input_summary: str, result: Dict[str, Any], evidence: List[Dict[str, Any]], confidence: float, user_id: Optional[str] = None, session_id: Optional[str] = None):
@@ -265,7 +275,7 @@ class SupabaseService:
         db = self._read_local_db()
         return sorted(db.get("evaluations", []), key=lambda x: x.get("created_at", ""), reverse=True)[:limit]
 
-    # --- Recruiter B2B Operations with Strict Tenant Isolation ---
+    # --- Recruiter Operations with Strict Tenant Isolation ---
     def create_job(self, company_id: str, title: str, description: str, requirements: List[str], seniority: str = "mid") -> str:
         job_id = str(uuid.uuid4())
         record = {
@@ -282,7 +292,7 @@ class SupabaseService:
             return job_id
 
         db = self._read_local_db()
-        db["jobs"][job_id] = record
+        db["recruit_jobs"].append(record)
         self._write_local_db(db)
         return job_id
 
@@ -292,7 +302,7 @@ class SupabaseService:
             res = self.supabase.table("jobs").select("*").eq("company_id", company_id).order("created_at", desc=True).execute()
             return res.data or []
         db = self._read_local_db()
-        return [j for j in db["jobs"].values() if j.get("company_id") == company_id]
+        return [j for j in db["recruit_jobs"] if j.get("company_id") == company_id]
 
     def get_job(self, job_id: str, company_id: Optional[str] = None) -> Optional[Dict[str, Any]]:
         """Tenant-isolated job retrieval."""
@@ -303,9 +313,10 @@ class SupabaseService:
             res = query.single().execute()
             return res.data
         db = self._read_local_db()
-        job = db["jobs"].get(job_id)
-        if job and (company_id is None or job.get("company_id") == company_id):
-            return job
+        for j in db["recruit_jobs"]:
+            if j.get("id") == job_id:
+                if company_id is None or j.get("company_id") == company_id:
+                    return j
         return None
 
     def submit_job_application(self, job_id: str, candidate_id: str, resume_id: str, score: float, rank_data: Dict[str, Any]) -> str:
@@ -324,7 +335,7 @@ class SupabaseService:
             return app_id
 
         db = self._read_local_db()
-        db["applications"][app_id] = record
+        db["recruit_candidates"].append(record)
         self._write_local_db(db)
         return app_id
 
@@ -339,7 +350,7 @@ class SupabaseService:
             return res.data or []
 
         db = self._read_local_db()
-        apps = [a for a in db["applications"].values() if a.get("job_id") == job_id]
+        apps = [a for a in db["recruit_candidates"] if a.get("job_id") == job_id]
         return sorted(apps, key=lambda x: x.get("score", 0), reverse=True)
 
     # --- Simulation Progression ---
@@ -353,14 +364,18 @@ class SupabaseService:
                 pass
 
         db = self._read_local_db()
-        key = f"{user_id}_{track}"
-        return db["user_progress"].get(key, {
+        for r in db["round_progress"]:
+            if r.get("user_id") == user_id and r.get("track", "default") == track:
+                return r
+
+        # Default progression template
+        return {
             "user_id": user_id,
             "track": track,
             "current_round": Config.ROUND_ORDER[0],
             "round_scores": {},
             "round_status": {Config.ROUND_ORDER[0]: "unlocked"}
-        })
+        }
 
     def save_user_progress(self, user_id: str, track: str, progress_data: Dict[str, Any]):
         record = {
@@ -377,8 +392,14 @@ class SupabaseService:
                 pass
 
         db = self._read_local_db()
-        key = f"{user_id}_{track}"
-        db["user_progress"][key] = record
+        found = False
+        for i, r in enumerate(db["round_progress"]):
+            if r.get("user_id") == user_id and r.get("track", "default") == track:
+                db["round_progress"][i] = record
+                found = True
+                break
+        if not found:
+            db["round_progress"].append(record)
         self._write_local_db(db)
 
 

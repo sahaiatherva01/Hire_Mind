@@ -22,8 +22,9 @@
   ],
   "round_progress": [
     {
-      "id": "rp-001",
       "user_id": "u-dev-001",
+      "track": "default",
+      "id": "rp-001",
       "round_name": "resume_screening",
       "mode": "simulation",
       "score": 85,
@@ -31,7 +32,11 @@
       "passed": true,
       "breakdown": {},
       "attempts": 2,
-      "completed_at": "2026-09-01T00:00:00Z"
+      "completed_at": "2026-09-01T00:00:00Z",
+      "round_scores": {
+        "resume_screening": 37.6
+      },
+      "updated_at": "2026-09-12T09:50:11.997220+00:00"
     },
     {
       "id": "rp-u-dev-001-aptitude-simulation",
@@ -45,9 +50,66 @@
       "attempts": 1
     }
   ],
-  "interview_sessions": [],
+  "interview_sessions": [
+    {
+      "id": "5974b900-689d-4cf4-8e89-30bc2cc69f54",
+      "user_id": "test_cand_01",
+      "role": "Backend Engineer",
+      "stage": "technical",
+      "company_tag": null,
+      "status": "in_progress",
+      "created_at": "2026-09-12T09:47:44.106981+00:00"
+    }
+  ],
   "question_bank": [],
-  "transcript": [],
+  "transcript": [
+    {
+      "id": "3d2afa0b-b9af-4a6d-8300-1f489efdd4ac",
+      "session_id": "5974b900-689d-4cf4-8e89-30bc2cc69f54",
+      "speaker": "interviewer",
+      "content": "In a distributed system, how would you design an idempotent API endpoint for payment processing to prevent double charging on network retries?",
+      "turn_index": 0,
+      "stage": "technical",
+      "metadata": {
+        "question_id": "iq-002",
+        "criteria": "Candidate should mention idempotency keys (UUIDs), distributed locks (Redis Redlock/database unique constraints), transaction statuses (INITIATED, SUCCESS, FAILED), and caching response payloads for identical keys."
+      },
+      "created_at": "2026-09-12T09:47:44.111244+00:00"
+    },
+    {
+      "id": "a289a709-d40a-44fa-b9e7-797cc86a5fa4",
+      "session_id": "5974b900-689d-4cf4-8e89-30bc2cc69f54",
+      "speaker": "candidate",
+      "content": "I use connection pools like psycopg2 pool and cache frequent read queries in Redis with a 60-second TTL.",
+      "turn_index": 1,
+      "stage": "technical",
+      "metadata": {
+        "score": 78,
+        "strengths": [
+          "Clear communication of core concept",
+          "Identified primary architectural considerations"
+        ],
+        "improvements": [
+          "Could elaborate more on failure modes and edge case handling"
+        ],
+        "follow_up_question": "How would your approach change if data volume increased by 100x and network latency spiked?",
+        "feedback": "Solid conceptual explanation with good fundamentals."
+      },
+      "created_at": "2026-09-12T09:47:44.116380+00:00"
+    },
+    {
+      "id": "24a95868-e537-452a-9fa0-2cd57f8fcdc9",
+      "session_id": "5974b900-689d-4cf4-8e89-30bc2cc69f54",
+      "speaker": "interviewer",
+      "content": "How would your approach change if data volume increased by 100x and network latency spiked?",
+      "turn_index": 2,
+      "stage": "technical",
+      "metadata": {
+        "criteria": "Follow-up depth"
+      },
+      "created_at": "2026-09-12T09:47:44.118783+00:00"
+    }
+  ],
   "resumes": [
     {
       "id": "7d8e788a-7278-4819-bccf-81e35d0862aa",
@@ -346,6 +408,105 @@
         "overall_score": 50.8
       },
       "created_at": "2026-09-12T09:08:14.084434+00:00"
+    },
+    {
+      "id": "b17a03a4-3296-494a-ba10-2156ff1b8301",
+      "user_id": "u-dev-001",
+      "filename": "pasted_resume.txt",
+      "parsed_text": "Alex Mercer\nEmail: alex@example.com\nPython, Docker, SQL",
+      "structured_data": {
+        "score": 37.6,
+        "category_scores": {
+          "ats_compatibility": {
+            "score": 9.0,
+            "max": 15
+          },
+          "structure": {
+            "score": 6.0,
+            "max": 15
+          },
+          "keyword_relevance": {
+            "score": 5.0,
+            "max": 20
+          },
+          "content_quality": {
+            "score": 4.0,
+            "max": 15
+          },
+          "skills_representation": {
+            "score": 5.0,
+            "max": 10
+          },
+          "quantifiable_impact": {
+            "score": 3.0,
+            "max": 15
+          },
+          "formatting": {
+            "score": 5.0,
+            "max": 10
+          },
+          "contact_info": {
+            "score": 2.5,
+            "max": 5
+          }
+        },
+        "raw_points": 39.5,
+        "max_points": 105.0,
+        "skills": {
+          "skills": [
+            "Python",
+            "SQL",
+            "Docker"
+          ],
+          "categorized": {
+            "languages": [
+              "Python",
+              "SQL"
+            ],
+            "frameworks": [],
+            "infrastructure": [
+              "Docker"
+            ]
+          },
+          "skill_count": 3
+        },
+        "jd_match": null,
+        "evidence": [
+          {
+            "source_collection": "kb_resume_best_practices",
+            "doc_id": "rbp-004",
+            "content": "Never use weak or passive verbs such as 'Assisted with', 'Responsible for', 'Helped', or 'Participated in'. Use high-impact verbs: 'Architected', 'Engineered', 'Spearheaded', 'Streamlined', 'Overhauled', 'Automated'.",
+            "similarity": 0.1501
+          },
+          {
+            "source_collection": "kb_resume_best_practices",
+            "doc_id": "rbp-005",
+            "content": "Avoid multi-column tables, text boxes, headers/footers for key contact info, and scanned images. Standard single-column linear layout with standard section headers ('Experience', 'Education', 'Skills', 'Projects') ensures 100% ATS parser accuracy.",
+            "similarity": 0.1349
+          },
+          {
+            "source_collection": "kb_resume_best_practices",
+            "doc_id": "rbp-002",
+            "content": "Quantify user-facing frontend impact using standardized Core Web Vitals or bundle size metrics.",
+            "similarity": 0.1064
+          }
+        ],
+        "parsed_metadata": {
+          "page_count": 1,
+          "is_multi_column": false,
+          "has_tables": false,
+          "contact": {
+            "email": "alex@example.com",
+            "phone": "",
+            "linkedin": "",
+            "github": ""
+          },
+          "char_count": 55,
+          "word_count": 7
+        }
+      },
+      "ats_score": 37.6,
+      "created_at": "2026-09-12T09:50:11.990932+00:00"
     }
   ],
   "recruit_jobs": [
@@ -407,9 +568,84 @@
       },
       "status": "active",
       "created_at": "2026-09-12T14:38:14Z"
+    },
+    {
+      "id": "69c4346d-3afe-4a61-8b7c-e256c5b0fc19",
+      "company_id": "comp_alpha_101",
+      "title": "Lead Security Engineer",
+      "description": "Lead cloud security, zero-trust architecture, and compliance.",
+      "requirements": [
+        "AWS",
+        "IAM",
+        "Kubernetes",
+        "Cryptography"
+      ],
+      "seniority": "lead",
+      "created_at": "2026-09-12T09:48:23.972239+00:00"
+    },
+    {
+      "id": "f1ed4a4c-89c7-430b-ba5a-30d1d652403d",
+      "company_id": "comp_beta_202",
+      "title": "Data Scientist",
+      "description": "Develop predictive ML models and pipelines.",
+      "requirements": [
+        "Python",
+        "PyTorch",
+        "SQL",
+        "Pandas"
+      ],
+      "seniority": "mid",
+      "created_at": "2026-09-12T09:48:23.975208+00:00"
     }
   ],
-  "recruit_candidates": [],
+  "recruit_candidates": [
+    {
+      "id": "feec79ff-98da-4f52-b626-3657e2bd201c",
+      "job_id": "69c4346d-3afe-4a61-8b7c-e256c5b0fc19",
+      "candidate_id": "cand_sec_1",
+      "resume_id": "batch",
+      "score": 69.2,
+      "rank_data": {
+        "id": "cand_sec_1",
+        "name": "Eve Cyber",
+        "raw_text": "Experienced security analyst with AWS IAM.",
+        "skills": [
+          "AWS",
+          "IAM"
+        ],
+        "composite_score": 69.2,
+        "skill_score": 100.0,
+        "semantic_score": 22.9,
+        "matched_skills": [
+          "AWS"
+        ],
+        "missing_skills": [],
+        "evidence": [
+          {
+            "source_collection": "kb_skills_taxonomy",
+            "doc_id": "6",
+            "content": "Node.js",
+            "similarity": 0.1516
+          },
+          {
+            "source_collection": "kb_skills_taxonomy",
+            "doc_id": "2",
+            "content": "Python",
+            "similarity": 0.1248
+          },
+          {
+            "source_collection": "kb_skills_taxonomy",
+            "doc_id": "1",
+            "content": "Java",
+            "similarity": 0.1126
+          }
+        ],
+        "rank": 1,
+        "recommendation": "Review"
+      },
+      "created_at": "2026-09-12T09:48:23.994032+00:00"
+    }
+  ],
   "recruit_assessments": [
     {
       "id": "test-9b2d605a-ef2a-42ad-af68-ee59c7082b51",
@@ -953,6 +1189,1549 @@
         }
       ],
       "created_at": "2026-09-12T09:08:14.086703+00:00"
+    },
+    {
+      "id": "6e0fc3cd-8269-4395-9283-5d139c4d8e2f",
+      "agent_name": "SkillExtractionAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "Extracted technical skill profile",
+      "result": {
+        "skills": [
+          null,
+          "Python",
+          "PostgreSQL",
+          "Docker",
+          "Kubernetes",
+          "AWS",
+          "Git",
+          "Flask",
+          "Go",
+          "Redis"
+        ],
+        "categorized": {
+          "languages": [
+            "Python",
+            "Go"
+          ],
+          "frameworks": [
+            "Flask"
+          ],
+          "infrastructure": [
+            "PostgreSQL",
+            "Docker",
+            "Kubernetes",
+            "AWS",
+            "Git",
+            "Redis"
+          ]
+        },
+        "skill_count": 10
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "3",
+          "content": "FastAPI",
+          "similarity": 0.1548
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "2",
+          "content": "Python",
+          "similarity": 0.1188
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "4",
+          "content": "React",
+          "similarity": 0.0927
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "8",
+          "content": "Docker",
+          "similarity": 0.0888
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "7",
+          "content": "PostgreSQL",
+          "similarity": 0.0843
+        }
+      ],
+      "confidence": 0.92,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:46:19.361352+00:00"
+    },
+    {
+      "id": "7b3a3405-ec73-4109-bc98-6a49eee4ce6d",
+      "agent_name": "SkillExtractionAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "Extracted technical skill profile",
+      "result": {
+        "skills": [
+          "PostgreSQL",
+          "Kubernetes",
+          "Python",
+          "Docker",
+          "AWS",
+          "Git",
+          "Flask",
+          "Go",
+          "Redis"
+        ],
+        "categorized": {
+          "languages": [
+            "Python",
+            "Go"
+          ],
+          "frameworks": [
+            "Flask"
+          ],
+          "infrastructure": [
+            "PostgreSQL",
+            "Kubernetes",
+            "Docker",
+            "AWS",
+            "Git",
+            "Redis"
+          ]
+        },
+        "skill_count": 9
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "7",
+          "content": "PostgreSQL",
+          "similarity": 0.1404
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "9",
+          "content": "Kubernetes",
+          "similarity": 0.1032
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "11",
+          "content": "Retrieval-Augmented Generation (RAG)",
+          "similarity": 0.094
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "0",
+          "content": "Spring Boot",
+          "similarity": 0.0923
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "1",
+          "content": "Java",
+          "similarity": 0.085
+        }
+      ],
+      "confidence": 0.92,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:46:43.851589+00:00"
+    },
+    {
+      "id": "ab80011c-fb9b-42d8-bbd3-30bd75c2f365",
+      "agent_name": "JDMatchAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "JD Keyword and Semantic Gap Analysis",
+      "result": {
+        "jd_match_score": 100.0,
+        "matched_skills": [
+          "Python",
+          "AWS",
+          "Redis"
+        ],
+        "missing_skills": [],
+        "total_jd_skills_detected": 3
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-001",
+          "content": "Senior Backend Engineer",
+          "similarity": 0.5028
+        },
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-004",
+          "content": "Frontend Software Engineer",
+          "similarity": 0.2727
+        }
+      ],
+      "confidence": 0.88,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:46:43.853235+00:00"
+    },
+    {
+      "id": "c9b0f2dd-472c-4db9-8ad2-740ce838527b",
+      "agent_name": "ATSScoringAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "Computed ATS+ 105-point rubric score",
+      "result": {
+        "overall_score": 91.9,
+        "raw_points": 96.5,
+        "max_points": 105.0,
+        "categories": {
+          "ats_compatibility": {
+            "score": 15.0,
+            "max": 15
+          },
+          "structure": {
+            "score": 15.0,
+            "max": 15
+          },
+          "keyword_relevance": {
+            "score": 20.0,
+            "max": 20
+          },
+          "content_quality": {
+            "score": 10.0,
+            "max": 15
+          },
+          "skills_representation": {
+            "score": 7.5,
+            "max": 10
+          },
+          "quantifiable_impact": {
+            "score": 15.0,
+            "max": 15
+          },
+          "formatting": {
+            "score": 10.0,
+            "max": 10
+          },
+          "contact_info": {
+            "score": 4.0,
+            "max": 5
+          }
+        }
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-005",
+          "content": "Avoid multi-column tables, text boxes, headers/footers for key contact info, and scanned images. Standard single-column linear layout with standard section headers ('Experience', 'Education', 'Skills', 'Projects') ensures 100% ATS parser accuracy.",
+          "similarity": 0.1558
+        },
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-002",
+          "content": "Quantify user-facing frontend impact using standardized Core Web Vitals or bundle size metrics.",
+          "similarity": 0.1191
+        },
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-001",
+          "content": "Follow the Google XYZ formula: Accomplished [X] as measured by [Y], by doing [Z]. Always lead with a strong active verb, provide explicit metrics (percentages, ms latency, throughput), and detail the technical mechanism.",
+          "similarity": 0.0988
+        }
+      ],
+      "confidence": 0.95,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:46:43.855499+00:00"
+    },
+    {
+      "id": "264bedb4-9653-43f6-88db-14bd4f8fbc49",
+      "agent_name": "SkillExtractionAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "Extracted technical skill profile",
+      "result": {
+        "skills": [
+          "Kubernetes",
+          "PostgreSQL",
+          "Python",
+          "Docker",
+          "AWS",
+          "Git",
+          "Flask",
+          "Go",
+          "Redis"
+        ],
+        "categorized": {
+          "languages": [
+            "Python",
+            "Go"
+          ],
+          "frameworks": [
+            "Flask"
+          ],
+          "infrastructure": [
+            "Kubernetes",
+            "PostgreSQL",
+            "Docker",
+            "AWS",
+            "Git",
+            "Redis"
+          ]
+        },
+        "skill_count": 9
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "5",
+          "content": "Next.js",
+          "similarity": 0.2805
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "9",
+          "content": "Kubernetes",
+          "similarity": 0.1147
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "7",
+          "content": "PostgreSQL",
+          "similarity": 0.1096
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "10",
+          "content": "PyTorch",
+          "similarity": 0.1017
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "4",
+          "content": "React",
+          "similarity": 0.0998
+        }
+      ],
+      "confidence": 0.92,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:47:44.100661+00:00"
+    },
+    {
+      "id": "340491d5-72fa-41e7-a05d-a4b4ad899ca6",
+      "agent_name": "JDMatchAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "JD Keyword and Semantic Gap Analysis",
+      "result": {
+        "jd_match_score": 100.0,
+        "matched_skills": [
+          "Python",
+          "AWS",
+          "Redis"
+        ],
+        "missing_skills": [],
+        "total_jd_skills_detected": 3
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-001",
+          "content": "Senior Backend Engineer",
+          "similarity": 0.4863
+        },
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-004",
+          "content": "Frontend Software Engineer",
+          "similarity": 0.3322
+        }
+      ],
+      "confidence": 0.88,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:47:44.102656+00:00"
+    },
+    {
+      "id": "17196f0e-a445-4e21-ab65-66c6edff4187",
+      "agent_name": "ATSScoringAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "Computed ATS+ 105-point rubric score",
+      "result": {
+        "overall_score": 91.9,
+        "raw_points": 96.5,
+        "max_points": 105.0,
+        "categories": {
+          "ats_compatibility": {
+            "score": 15.0,
+            "max": 15
+          },
+          "structure": {
+            "score": 15.0,
+            "max": 15
+          },
+          "keyword_relevance": {
+            "score": 20.0,
+            "max": 20
+          },
+          "content_quality": {
+            "score": 10.0,
+            "max": 15
+          },
+          "skills_representation": {
+            "score": 7.5,
+            "max": 10
+          },
+          "quantifiable_impact": {
+            "score": 15.0,
+            "max": 15
+          },
+          "formatting": {
+            "score": 10.0,
+            "max": 10
+          },
+          "contact_info": {
+            "score": 4.0,
+            "max": 5
+          }
+        }
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-002",
+          "content": "Quantify user-facing frontend impact using standardized Core Web Vitals or bundle size metrics.",
+          "similarity": 0.1176
+        },
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-005",
+          "content": "Avoid multi-column tables, text boxes, headers/footers for key contact info, and scanned images. Standard single-column linear layout with standard section headers ('Experience', 'Education', 'Skills', 'Projects') ensures 100% ATS parser accuracy.",
+          "similarity": 0.1111
+        },
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-004",
+          "content": "Never use weak or passive verbs such as 'Assisted with', 'Responsible for', 'Helped', or 'Participated in'. Use high-impact verbs: 'Architected', 'Engineered', 'Spearheaded', 'Streamlined', 'Overhauled', 'Automated'.",
+          "similarity": 0.0788
+        }
+      ],
+      "confidence": 0.95,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:47:44.105160+00:00"
+    },
+    {
+      "id": "2cb5a67e-bbd8-4b7b-ac26-c76133fdfec8",
+      "agent_name": "InterviewPlanningAgent",
+      "module": "interview_orchestrator",
+      "input_summary": "Planned 5 questions for Backend Engineer (technical)",
+      "result": {
+        "role": "Backend Engineer",
+        "stage": "technical",
+        "questions": [
+          {
+            "id": "iq-002",
+            "question": "In a distributed system, how would you design an idempotent API endpoint for payment processing to prevent double charging on network retries?",
+            "skill": "Distributed Systems",
+            "difficulty": "hard",
+            "sample_criteria": "Candidate should mention idempotency keys (UUIDs), distributed locks (Redis Redlock/database unique constraints), transaction statuses (INITIATED, SUCCESS, FAILED), and caching response payloads for identical keys."
+          },
+          {
+            "id": "iq-007",
+            "question": "What are the core tradeoffs between Server-Side Rendering (SSR), Static Site Generation (SSG), and Incremental Static Regeneration (ISR)?",
+            "skill": "Next.js",
+            "difficulty": "medium",
+            "sample_criteria": "SSG gives fastest TTFB at build-time cost; SSR renders dynamic user-specific data per request with server latency; ISR periodically regenerates static pages in background on cache stale."
+          },
+          {
+            "id": "iq-001",
+            "question": "How does the Java Garbage Collector handle circular object references between two unused objects in the heap?",
+            "skill": "Java",
+            "difficulty": "hard",
+            "sample_criteria": "Candidate should explain Tracing Garbage Collection (GC Roots, Mark and Sweep) rather than simple reference counting, clarifying that unreachable circular graphs are collected."
+          },
+          {
+            "id": "iq-003",
+            "question": "Explain the difference between optimistic concurrency control and pessimistic locking in PostgreSQL. Under what transaction throughput conditions would you choose each?",
+            "skill": "PostgreSQL",
+            "difficulty": "medium",
+            "sample_criteria": "Candidate should define OCC (version/timestamp checks) vs Pessimistic (SELECT FOR UPDATE locks), noting OCC works best in low-contention high-throughput scenarios, while pessimistic is safer in high-contention balance deductions."
+          },
+          {
+            "id": "iq-004",
+            "question": "How does Python manage concurrency with the Global Interpreter Lock (GIL), and when should you use multiprocessing or asyncio instead of threading?",
+            "skill": "Python",
+            "difficulty": "medium",
+            "sample_criteria": "GIL ensures only one thread executes bytecode at a time. I/O-bound tasks benefit from threading/asyncio; CPU-bound tasks require multiprocessing to leverage multiple CPU cores."
+          }
+        ],
+        "question_count": 5
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-002",
+          "content": "In a distributed system, how would you design an idempotent API endpoint for payment processing to prevent double charging on network retries?",
+          "similarity": 0.281
+        },
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-007",
+          "content": "What are the core tradeoffs between Server-Side Rendering (SSR), Static Site Generation (SSG), and Incremental Static Regeneration (ISR)?",
+          "similarity": 0.2756
+        },
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-001",
+          "content": "How does the Java Garbage Collector handle circular object references between two unused objects in the heap?",
+          "similarity": 0.2393
+        },
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-003",
+          "content": "Explain the difference between optimistic concurrency control and pessimistic locking in PostgreSQL. Under what transaction throughput conditions would you choose each?",
+          "similarity": 0.223
+        },
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-004",
+          "content": "How does Python manage concurrency with the Global Interpreter Lock (GIL), and when should you use multiprocessing or asyncio instead of threading?",
+          "similarity": 0.2138
+        }
+      ],
+      "confidence": 0.94,
+      "user_id": "test_cand_01",
+      "session_id": null,
+      "created_at": "2026-09-12T09:47:44.109282+00:00"
+    },
+    {
+      "id": "3fc0e18e-7493-4603-afe2-89c63a2d2854",
+      "agent_name": "TechnicalAgent",
+      "module": "interview_orchestrator",
+      "input_summary": "Evaluated answer for: In a distributed system, how would you d",
+      "result": {
+        "score": 78,
+        "strengths": [
+          "Clear communication of core concept",
+          "Identified primary architectural considerations"
+        ],
+        "improvements": [
+          "Could elaborate more on failure modes and edge case handling"
+        ],
+        "follow_up_question": "How would your approach change if data volume increased by 100x and network latency spiked?",
+        "feedback": "Solid conceptual explanation with good fundamentals."
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-002",
+          "content": "In a distributed system, how would you design an idempotent API endpoint for payment processing to prevent double charging on network retries?",
+          "similarity": 0.8558
+        },
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-012",
+          "content": "How would you design a zero-downtime database migration schema change that renames a column on a table with 50 million rows?",
+          "similarity": 0.4247
+        }
+      ],
+      "confidence": 0.89,
+      "user_id": "test_cand_01",
+      "session_id": "5974b900-689d-4cf4-8e89-30bc2cc69f54",
+      "created_at": "2026-09-12T09:47:44.114241+00:00"
+    },
+    {
+      "id": "41926909-416b-4ed4-b334-402cb5613cfc",
+      "agent_name": "JDParsingAgent",
+      "module": "recruiter_orchestrator",
+      "input_summary": "Parsed JD: Senior Backend Engineer",
+      "result": {
+        "title": "Senior Backend Engineer",
+        "seniority": "senior",
+        "required_skills": [
+          "Python",
+          "Docker",
+          "Kubernetes",
+          "AWS"
+        ],
+        "skill_count": 4
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-001",
+          "content": "Senior Backend Engineer",
+          "similarity": 0.5184
+        },
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-002",
+          "content": "Fullstack Software Engineer",
+          "similarity": 0.2802
+        }
+      ],
+      "confidence": 0.92,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:47:44.189851+00:00"
+    },
+    {
+      "id": "a4c59ec8-5ed5-48ca-8af7-9cfc4abf352a",
+      "agent_name": "BulkMatchAgent",
+      "module": "recruiter_orchestrator",
+      "input_summary": "Matched candidate Alice",
+      "result": {
+        "composite_score": 73.9,
+        "skill_score": 100.0,
+        "semantic_score": 34.7,
+        "matched_skills": [
+          "Python",
+          "Docker",
+          "Kubernetes",
+          "AWS"
+        ],
+        "missing_skills": []
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "2",
+          "content": "Python",
+          "similarity": 0.1592
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "5",
+          "content": "Next.js",
+          "similarity": 0.1434
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "7",
+          "content": "PostgreSQL",
+          "similarity": 0.1356
+        }
+      ],
+      "confidence": 0.9,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:47:44.192561+00:00"
+    },
+    {
+      "id": "0a47fff6-70a9-4fa5-b059-9064465b6efb",
+      "agent_name": "BulkMatchAgent",
+      "module": "recruiter_orchestrator",
+      "input_summary": "Matched candidate Bob",
+      "result": {
+        "composite_score": 3.1,
+        "skill_score": 0.0,
+        "semantic_score": 7.7,
+        "matched_skills": [],
+        "missing_skills": [
+          "Python",
+          "Docker",
+          "Kubernetes",
+          "AWS"
+        ]
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "2",
+          "content": "Python",
+          "similarity": 0.1592
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "5",
+          "content": "Next.js",
+          "similarity": 0.1434
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "7",
+          "content": "PostgreSQL",
+          "similarity": 0.1356
+        }
+      ],
+      "confidence": 0.9,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:47:44.194750+00:00"
+    },
+    {
+      "id": "f6c7381f-8101-41b3-b4c9-1f787b7ceab3",
+      "agent_name": "RankingAgent",
+      "module": "recruiter_orchestrator",
+      "input_summary": "Ranked 2 candidates",
+      "result": {
+        "ranked_candidates": [
+          {
+            "id": "c1",
+            "name": "Alice",
+            "raw_text": "Senior Python Developer with AWS, Docker, Kubernetes, microservices experience.",
+            "skills": [
+              "Python",
+              "AWS",
+              "Docker",
+              "Kubernetes"
+            ],
+            "composite_score": 73.9,
+            "skill_score": 100.0,
+            "semantic_score": 34.7,
+            "matched_skills": [
+              "Python",
+              "Docker",
+              "Kubernetes",
+              "AWS"
+            ],
+            "missing_skills": [],
+            "evidence": [
+              {
+                "source_collection": "kb_skills_taxonomy",
+                "doc_id": "2",
+                "content": "Python",
+                "similarity": 0.1592
+              },
+              {
+                "source_collection": "kb_skills_taxonomy",
+                "doc_id": "5",
+                "content": "Next.js",
+                "similarity": 0.1434
+              },
+              {
+                "source_collection": "kb_skills_taxonomy",
+                "doc_id": "7",
+                "content": "PostgreSQL",
+                "similarity": 0.1356
+              }
+            ],
+            "rank": 1,
+            "recommendation": "Review"
+          },
+          {
+            "id": "c2",
+            "name": "Bob",
+            "raw_text": "Junior Frontend developer with HTML, CSS, JavaScript, and some React.",
+            "skills": [
+              "HTML",
+              "CSS",
+              "JavaScript",
+              "React"
+            ],
+            "composite_score": 3.1,
+            "skill_score": 0.0,
+            "semantic_score": 7.7,
+            "matched_skills": [],
+            "missing_skills": [
+              "Python",
+              "Docker",
+              "Kubernetes",
+              "AWS"
+            ],
+            "evidence": [
+              {
+                "source_collection": "kb_skills_taxonomy",
+                "doc_id": "2",
+                "content": "Python",
+                "similarity": 0.1592
+              },
+              {
+                "source_collection": "kb_skills_taxonomy",
+                "doc_id": "5",
+                "content": "Next.js",
+                "similarity": 0.1434
+              },
+              {
+                "source_collection": "kb_skills_taxonomy",
+                "doc_id": "7",
+                "content": "PostgreSQL",
+                "similarity": 0.1356
+              }
+            ],
+            "rank": 2,
+            "recommendation": "Hold"
+          }
+        ],
+        "total_screened": 2,
+        "fast_track_count": 0
+      },
+      "evidence": [],
+      "confidence": 0.95,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:47:44.196657+00:00"
+    },
+    {
+      "id": "3ac9943c-d408-4712-afd6-41acb4fccc95",
+      "agent_name": "AssessmentGenerationAgent",
+      "module": "recruiter_orchestrator",
+      "input_summary": "Generated screening assessment for Senior Backend Engineer",
+      "result": {
+        "job_title": "Senior Backend Engineer",
+        "screening_questions": [
+          {
+            "id": "iq-004",
+            "question": "How does Python manage concurrency with the Global Interpreter Lock (GIL), and when should you use multiprocessing or asyncio instead of threading?",
+            "skill": "Python",
+            "difficulty": "medium",
+            "sample_criteria": "GIL ensures only one thread executes bytecode at a time. I/O-bound tasks benefit from threading/asyncio; CPU-bound tasks require multiprocessing to leverage multiple CPU cores."
+          },
+          {
+            "id": "iq-011",
+            "question": "Walk me through how Kubernetes handles Pod evictions during high node memory pressure. What is the role of OOMScoreAdjust and QoS classes?",
+            "skill": "Kubernetes",
+            "difficulty": "hard",
+            "sample_criteria": "Kubelet evicts BestEffort pods first, then Burstable, and lastly Guaranteed pods. OOMScoreAdjust dictates kernel OOM killer priority when memory is exhausted."
+          },
+          {
+            "id": "iq-015",
+            "question": "Tell me about a time when you had a technical disagreement with a team member or senior engineer about an architectural approach. How did you resolve it?",
+            "skill": "Communication & Conflict",
+            "difficulty": "medium",
+            "sample_criteria": "STAR format: Situation, Task, Action (data-driven prototyping, objective benchmark comparison, active listening), Result (aligned outcome, respectful consensus, successful launch)."
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-004",
+          "content": "How does Python manage concurrency with the Global Interpreter Lock (GIL), and when should you use multiprocessing or asyncio instead of threading?",
+          "similarity": 0.2408
+        },
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-011",
+          "content": "Walk me through how Kubernetes handles Pod evictions during high node memory pressure. What is the role of OOMScoreAdjust and QoS classes?",
+          "similarity": 0.1656
+        },
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-015",
+          "content": "Tell me about a time when you had a technical disagreement with a team member or senior engineer about an architectural approach. How did you resolve it?",
+          "similarity": 0.1628
+        }
+      ],
+      "confidence": 0.92,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:47:44.198773+00:00"
+    },
+    {
+      "id": "07730e29-deb8-4c37-9d2c-f520b198e7b3",
+      "agent_name": "JDParsingAgent",
+      "module": "recruiter_orchestrator",
+      "input_summary": "Parsed JD: Lead Security Engineer",
+      "result": {
+        "title": "Lead Security Engineer",
+        "seniority": "senior",
+        "required_skills": [
+          "AWS"
+        ],
+        "skill_count": 1
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-001",
+          "content": "Senior Backend Engineer",
+          "similarity": 0.1562
+        },
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-002",
+          "content": "Fullstack Software Engineer",
+          "similarity": 0.1503
+        }
+      ],
+      "confidence": 0.92,
+      "user_id": "recruiter-001",
+      "session_id": null,
+      "created_at": "2026-09-12T09:48:23.980699+00:00"
+    },
+    {
+      "id": "09a66f86-7a78-4d24-90b6-3b3f7ad5b713",
+      "agent_name": "BulkMatchAgent",
+      "module": "recruiter_orchestrator",
+      "input_summary": "Matched candidate Eve Cyber",
+      "result": {
+        "composite_score": 69.2,
+        "skill_score": 100.0,
+        "semantic_score": 22.9,
+        "matched_skills": [
+          "AWS"
+        ],
+        "missing_skills": []
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "6",
+          "content": "Node.js",
+          "similarity": 0.1516
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "2",
+          "content": "Python",
+          "similarity": 0.1248
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "1",
+          "content": "Java",
+          "similarity": 0.1126
+        }
+      ],
+      "confidence": 0.9,
+      "user_id": "recruiter-001",
+      "session_id": null,
+      "created_at": "2026-09-12T09:48:23.984794+00:00"
+    },
+    {
+      "id": "58d0b6f2-7d89-40db-83e2-52589ad3db5c",
+      "agent_name": "RankingAgent",
+      "module": "recruiter_orchestrator",
+      "input_summary": "Ranked 1 candidates",
+      "result": {
+        "ranked_candidates": [
+          {
+            "id": "cand_sec_1",
+            "name": "Eve Cyber",
+            "raw_text": "Experienced security analyst with AWS IAM.",
+            "skills": [
+              "AWS",
+              "IAM"
+            ],
+            "composite_score": 69.2,
+            "skill_score": 100.0,
+            "semantic_score": 22.9,
+            "matched_skills": [
+              "AWS"
+            ],
+            "missing_skills": [],
+            "evidence": [
+              {
+                "source_collection": "kb_skills_taxonomy",
+                "doc_id": "6",
+                "content": "Node.js",
+                "similarity": 0.1516
+              },
+              {
+                "source_collection": "kb_skills_taxonomy",
+                "doc_id": "2",
+                "content": "Python",
+                "similarity": 0.1248
+              },
+              {
+                "source_collection": "kb_skills_taxonomy",
+                "doc_id": "1",
+                "content": "Java",
+                "similarity": 0.1126
+              }
+            ],
+            "rank": 1,
+            "recommendation": "Review"
+          }
+        ],
+        "total_screened": 1,
+        "fast_track_count": 0
+      },
+      "evidence": [],
+      "confidence": 0.95,
+      "user_id": "recruiter-001",
+      "session_id": null,
+      "created_at": "2026-09-12T09:48:23.987084+00:00"
+    },
+    {
+      "id": "f934470d-29b8-4d08-937a-1b3be41e25a1",
+      "agent_name": "AssessmentGenerationAgent",
+      "module": "recruiter_orchestrator",
+      "input_summary": "Generated screening assessment for Lead Security Engineer",
+      "result": {
+        "job_title": "Lead Security Engineer",
+        "screening_questions": [
+          {
+            "id": "iq-013",
+            "question": "Walk me through the architecture of a major project listed on your resume. What was the single biggest technical bottleneck you encountered, and how did you resolve it?",
+            "skill": "System Architecture",
+            "difficulty": "medium",
+            "sample_criteria": "Candidate should articulate clear components (clients, gateway, services, data store), quantify throughput/scale, identify concrete bottleneck (e.g. N+1 queries, lock contention, network I/O), and explain measured fix."
+          },
+          {
+            "id": "iq-003",
+            "question": "Explain the difference between optimistic concurrency control and pessimistic locking in PostgreSQL. Under what transaction throughput conditions would you choose each?",
+            "skill": "PostgreSQL",
+            "difficulty": "medium",
+            "sample_criteria": "Candidate should define OCC (version/timestamp checks) vs Pessimistic (SELECT FOR UPDATE locks), noting OCC works best in low-contention high-throughput scenarios, while pessimistic is safer in high-contention balance deductions."
+          },
+          {
+            "id": "iq-007",
+            "question": "What are the core tradeoffs between Server-Side Rendering (SSR), Static Site Generation (SSG), and Incremental Static Regeneration (ISR)?",
+            "skill": "Next.js",
+            "difficulty": "medium",
+            "sample_criteria": "SSG gives fastest TTFB at build-time cost; SSR renders dynamic user-specific data per request with server latency; ISR periodically regenerates static pages in background on cache stale."
+          }
+        ]
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-013",
+          "content": "Walk me through the architecture of a major project listed on your resume. What was the single biggest technical bottleneck you encountered, and how did you resolve it?",
+          "similarity": 0.1152
+        },
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-003",
+          "content": "Explain the difference between optimistic concurrency control and pessimistic locking in PostgreSQL. Under what transaction throughput conditions would you choose each?",
+          "similarity": 0.1102
+        },
+        {
+          "source_collection": "kb_interview_questions",
+          "doc_id": "iq-007",
+          "content": "What are the core tradeoffs between Server-Side Rendering (SSR), Static Site Generation (SSG), and Incremental Static Regeneration (ISR)?",
+          "similarity": 0.1092
+        }
+      ],
+      "confidence": 0.92,
+      "user_id": "recruiter-001",
+      "session_id": null,
+      "created_at": "2026-09-12T09:48:23.991680+00:00"
+    },
+    {
+      "id": "d1731cd4-ffeb-4b62-acf7-9044ee885084",
+      "agent_name": "SkillExtractionAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "Extracted technical skill profile",
+      "result": {
+        "skills": [
+          "Kubernetes",
+          "Python",
+          "PostgreSQL",
+          "Docker",
+          "AWS",
+          "GCP",
+          "Go",
+          "Redis",
+          "Linux"
+        ],
+        "categorized": {
+          "languages": [
+            "Python",
+            "Go"
+          ],
+          "frameworks": [],
+          "infrastructure": [
+            "Kubernetes",
+            "PostgreSQL",
+            "Docker",
+            "AWS",
+            "GCP",
+            "Redis",
+            "Linux"
+          ]
+        },
+        "skill_count": 9
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "9",
+          "content": "Kubernetes",
+          "similarity": 0.1899
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "6",
+          "content": "Node.js",
+          "similarity": 0.1426
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "2",
+          "content": "Python",
+          "similarity": 0.142
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "11",
+          "content": "Retrieval-Augmented Generation (RAG)",
+          "similarity": 0.1313
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "10",
+          "content": "PyTorch",
+          "similarity": 0.1304
+        }
+      ],
+      "confidence": 0.92,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:49:22.455301+00:00"
+    },
+    {
+      "id": "bf13004c-503b-43ea-99b2-c044ca2f671e",
+      "agent_name": "ATSScoringAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "Computed ATS+ 105-point rubric score",
+      "result": {
+        "overall_score": 83.1,
+        "raw_points": 87.3,
+        "max_points": 105.0,
+        "categories": {
+          "ats_compatibility": {
+            "score": 15.0,
+            "max": 15
+          },
+          "structure": {
+            "score": 15.0,
+            "max": 15
+          },
+          "keyword_relevance": {
+            "score": 10.8,
+            "max": 20
+          },
+          "content_quality": {
+            "score": 12.5,
+            "max": 15
+          },
+          "skills_representation": {
+            "score": 5.0,
+            "max": 10
+          },
+          "quantifiable_impact": {
+            "score": 15.0,
+            "max": 15
+          },
+          "formatting": {
+            "score": 10.0,
+            "max": 10
+          },
+          "contact_info": {
+            "score": 4.0,
+            "max": 5
+          }
+        }
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-005",
+          "content": "Avoid multi-column tables, text boxes, headers/footers for key contact info, and scanned images. Standard single-column linear layout with standard section headers ('Experience', 'Education', 'Skills', 'Projects') ensures 100% ATS parser accuracy.",
+          "similarity": 0.1851
+        },
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-002",
+          "content": "Quantify user-facing frontend impact using standardized Core Web Vitals or bundle size metrics.",
+          "similarity": 0.1031
+        },
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-004",
+          "content": "Never use weak or passive verbs such as 'Assisted with', 'Responsible for', 'Helped', or 'Participated in'. Use high-impact verbs: 'Architected', 'Engineered', 'Spearheaded', 'Streamlined', 'Overhauled', 'Automated'.",
+          "similarity": 0.1014
+        }
+      ],
+      "confidence": 0.95,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:49:22.459554+00:00"
+    },
+    {
+      "id": "63de0d8a-5866-44ec-bc9d-fdaa31de38f0",
+      "agent_name": "SkillExtractionAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "Extracted technical skill profile",
+      "result": {
+        "skills": [
+          "Python"
+        ],
+        "categorized": {
+          "languages": [
+            "Python"
+          ],
+          "frameworks": [],
+          "infrastructure": []
+        },
+        "skill_count": 1
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "11",
+          "content": "Retrieval-Augmented Generation (RAG)",
+          "similarity": 0.0733
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "2",
+          "content": "Python",
+          "similarity": 0.0718
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "8",
+          "content": "Docker",
+          "similarity": 0.0703
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "4",
+          "content": "React",
+          "similarity": 0.0625
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "9",
+          "content": "Kubernetes",
+          "similarity": 0.0603
+        }
+      ],
+      "confidence": 0.92,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:49:22.462741+00:00"
+    },
+    {
+      "id": "21b911d3-9054-432c-89e4-6d84c6ae68f4",
+      "agent_name": "ATSScoringAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "Computed ATS+ 105-point rubric score",
+      "result": {
+        "overall_score": 37.1,
+        "raw_points": 39.0,
+        "max_points": 105.0,
+        "categories": {
+          "ats_compatibility": {
+            "score": 9.0,
+            "max": 15
+          },
+          "structure": {
+            "score": 10.0,
+            "max": 15
+          },
+          "keyword_relevance": {
+            "score": 5.0,
+            "max": 20
+          },
+          "content_quality": {
+            "score": 4.0,
+            "max": 15
+          },
+          "skills_representation": {
+            "score": 3.0,
+            "max": 10
+          },
+          "quantifiable_impact": {
+            "score": 3.0,
+            "max": 15
+          },
+          "formatting": {
+            "score": 5.0,
+            "max": 10
+          },
+          "contact_info": {
+            "score": 0.0,
+            "max": 5
+          }
+        }
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-005",
+          "content": "Avoid multi-column tables, text boxes, headers/footers for key contact info, and scanned images. Standard single-column linear layout with standard section headers ('Experience', 'Education', 'Skills', 'Projects') ensures 100% ATS parser accuracy.",
+          "similarity": 0.1851
+        },
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-002",
+          "content": "Quantify user-facing frontend impact using standardized Core Web Vitals or bundle size metrics.",
+          "similarity": 0.1031
+        },
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-004",
+          "content": "Never use weak or passive verbs such as 'Assisted with', 'Responsible for', 'Helped', or 'Participated in'. Use high-impact verbs: 'Architected', 'Engineered', 'Spearheaded', 'Streamlined', 'Overhauled', 'Automated'.",
+          "similarity": 0.1014
+        }
+      ],
+      "confidence": 0.95,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:49:22.465640+00:00"
+    },
+    {
+      "id": "fab6cd56-472c-4d98-9fe2-245d10c40f34",
+      "agent_name": "JDMatchAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "JD Keyword and Semantic Gap Analysis",
+      "result": {
+        "jd_match_score": 80.0,
+        "matched_skills": [
+          "Python",
+          "Flask",
+          "PostgreSQL",
+          "Docker"
+        ],
+        "missing_skills": [
+          "Microservices"
+        ],
+        "total_jd_skills_detected": 5
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-002",
+          "content": "Fullstack Software Engineer",
+          "similarity": 0.3563
+        },
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-001",
+          "content": "Senior Backend Engineer",
+          "similarity": 0.3534
+        }
+      ],
+      "confidence": 0.88,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:49:22.469407+00:00"
+    },
+    {
+      "id": "6e366824-ee9d-46c0-b97e-901cbc0d299f",
+      "agent_name": "JDMatchAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "JD Keyword and Semantic Gap Analysis",
+      "result": {
+        "jd_match_score": 0.0,
+        "matched_skills": [],
+        "missing_skills": [
+          "CI/CD"
+        ],
+        "total_jd_skills_detected": 1
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-001",
+          "content": "Senior Backend Engineer",
+          "similarity": 0.2985
+        },
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-004",
+          "content": "Frontend Software Engineer",
+          "similarity": 0.1851
+        }
+      ],
+      "confidence": 0.88,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:49:22.472401+00:00"
+    },
+    {
+      "id": "c6a72085-1b8b-446f-9756-5a9a67b4ba82",
+      "agent_name": "JDMatchAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "JD Keyword and Semantic Gap Analysis",
+      "result": {
+        "jd_match_score": 80.0,
+        "matched_skills": [
+          "Python",
+          "Flask",
+          "PostgreSQL",
+          "Docker"
+        ],
+        "missing_skills": [
+          "Microservices"
+        ],
+        "total_jd_skills_detected": 5
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-002",
+          "content": "Fullstack Software Engineer",
+          "similarity": 0.3563
+        },
+        {
+          "source_collection": "kb_jd_corpus",
+          "doc_id": "jd-001",
+          "content": "Senior Backend Engineer",
+          "similarity": 0.3534
+        }
+      ],
+      "confidence": 0.88,
+      "user_id": null,
+      "session_id": null,
+      "created_at": "2026-09-12T09:49:22.475257+00:00"
+    },
+    {
+      "id": "67dd4694-38c6-4f70-a63f-ce56ceca1926",
+      "agent_name": "ImprovementAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "Bullet rewrite: Built REST APIs for user authentication.",
+      "result": {
+        "improved_bullet": "Engineered scalable solution for built rest apis for user authentication, optimizing execution efficiency by 30% through modular architecture.",
+        "changes_made": [
+          "Added active action verb",
+          "Framed with Google XYZ outcome structure",
+          "Included quantifiable efficiency metric"
+        ],
+        "formula_breakdown": {
+          "action": "Engineered",
+          "impact": "Optimized execution efficiency by 30%",
+          "method": "Modular architecture"
+        }
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-005",
+          "content": "Avoid multi-column tables, text boxes, headers/footers for key contact info, and scanned images. Standard single-column linear layout with standard section headers ('Experience', 'Education', 'Skills', 'Projects') ensures 100% ATS parser accuracy.",
+          "similarity": 0.0912
+        },
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-002",
+          "content": "Quantify user-facing frontend impact using standardized Core Web Vitals or bundle size metrics.",
+          "similarity": 0.085
+        }
+      ],
+      "confidence": 0.9,
+      "user_id": "u-dev-001",
+      "session_id": null,
+      "created_at": "2026-09-12T09:50:11.973009+00:00"
+    },
+    {
+      "id": "7abbc869-dc1e-4ca3-ab19-2bfee7708cca",
+      "agent_name": "SkillExtractionAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "Extracted technical skill profile",
+      "result": {
+        "skills": [
+          "Python",
+          "SQL",
+          "Docker"
+        ],
+        "categorized": {
+          "languages": [
+            "Python",
+            "SQL"
+          ],
+          "frameworks": [],
+          "infrastructure": [
+            "Docker"
+          ]
+        },
+        "skill_count": 3
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "2",
+          "content": "Python",
+          "similarity": 0.0271
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "6",
+          "content": "Node.js",
+          "similarity": 0.0225
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "11",
+          "content": "Retrieval-Augmented Generation (RAG)",
+          "similarity": 0.0
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "10",
+          "content": "PyTorch",
+          "similarity": 0.0
+        },
+        {
+          "source_collection": "kb_skills_taxonomy",
+          "doc_id": "9",
+          "content": "Kubernetes",
+          "similarity": 0.0
+        }
+      ],
+      "confidence": 0.92,
+      "user_id": "u-dev-001",
+      "session_id": null,
+      "created_at": "2026-09-12T09:50:11.981594+00:00"
+    },
+    {
+      "id": "e5c01f71-d201-4afd-a12a-5a4116bdefb5",
+      "agent_name": "ATSScoringAgent",
+      "module": "resume_orchestrator",
+      "input_summary": "Computed ATS+ 105-point rubric score",
+      "result": {
+        "overall_score": 37.6,
+        "raw_points": 39.5,
+        "max_points": 105.0,
+        "categories": {
+          "ats_compatibility": {
+            "score": 9.0,
+            "max": 15
+          },
+          "structure": {
+            "score": 6.0,
+            "max": 15
+          },
+          "keyword_relevance": {
+            "score": 5.0,
+            "max": 20
+          },
+          "content_quality": {
+            "score": 4.0,
+            "max": 15
+          },
+          "skills_representation": {
+            "score": 5.0,
+            "max": 10
+          },
+          "quantifiable_impact": {
+            "score": 3.0,
+            "max": 15
+          },
+          "formatting": {
+            "score": 5.0,
+            "max": 10
+          },
+          "contact_info": {
+            "score": 2.5,
+            "max": 5
+          }
+        }
+      },
+      "evidence": [
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-004",
+          "content": "Never use weak or passive verbs such as 'Assisted with', 'Responsible for', 'Helped', or 'Participated in'. Use high-impact verbs: 'Architected', 'Engineered', 'Spearheaded', 'Streamlined', 'Overhauled', 'Automated'.",
+          "similarity": 0.1501
+        },
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-005",
+          "content": "Avoid multi-column tables, text boxes, headers/footers for key contact info, and scanned images. Standard single-column linear layout with standard section headers ('Experience', 'Education', 'Skills', 'Projects') ensures 100% ATS parser accuracy.",
+          "similarity": 0.1349
+        },
+        {
+          "source_collection": "kb_resume_best_practices",
+          "doc_id": "rbp-002",
+          "content": "Quantify user-facing frontend impact using standardized Core Web Vitals or bundle size metrics.",
+          "similarity": 0.1064
+        }
+      ],
+      "confidence": 0.95,
+      "user_id": "u-dev-001",
+      "session_id": null,
+      "created_at": "2026-09-12T09:50:11.987045+00:00"
     }
   ]
 }
