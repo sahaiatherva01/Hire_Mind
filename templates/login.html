@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In — HireMind AI</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body style="display:flex; align-items:center; justify-content:center; min-height:100vh;">
+
+  <div class="glass-card" style="width:100%; max-width:440px; padding:2.5rem;">
+    <div style="text-align:center; margin-bottom:2rem;">
+      <a href="/" style="text-decoration:none; font-size:1.6rem; font-weight:800; color:#fff;">
+        <span style="color:var(--color-primary);">⚡</span> HireMind
+      </a>
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-top:0.35rem;">Log in to access your placement roadmap.</p>
+    </div>
+
+    <form id="login-form" style="display:flex; flex-direction:column; gap:1.25rem;">
+      <div>
+        <label style="font-size:0.85rem; font-weight:600; color:#fff; display:block; margin-bottom:0.4rem;">Email Address</label>
+        <input type="email" id="login-email" required value="candidate@hiremind.ai" style="width:100%; background:var(--bg-tertiary); color:#fff; border:1px solid var(--border-glass); padding:0.75rem 1rem; border-radius:var(--radius-md); font-family:var(--font-sans); font-size:0.95rem;">
+      </div>
+
+      <div>
+        <label style="font-size:0.85rem; font-weight:600; color:#fff; display:block; margin-bottom:0.4rem;">Password</label>
+        <input type="password" id="login-password" required value="devpass" style="width:100%; background:var(--bg-tertiary); color:#fff; border:1px solid var(--border-glass); padding:0.75rem 1rem; border-radius:var(--radius-md); font-family:var(--font-sans); font-size:0.95rem;">
+      </div>
+
+      <div id="login-error" style="display:none; color:var(--color-red); font-size:0.85rem;"></div>
+
+      <button type="submit" class="btn btn-primary" style="padding:0.8rem; margin-top:0.5rem;">Log In to Account →</button>
+    </form>
+
+    <div style="margin-top:1.5rem; text-align:center; font-size:0.85rem; color:var(--text-muted);">
+      Don't have an account? <a href="/signup" style="color:var(--color-accent); text-decoration:none; font-weight:600;">Sign up</a>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const errEl = document.getElementById('login-error');
+
+      try {
+        const res = await API.login({ email, password });
+        localStorage.setItem('hiremind_user', JSON.stringify(res.user));
+        if (res.user.role === 'recruiter') {
+          window.location.href = '/recruit';
+        } else {
+          window.location.href = '/dashboard';
+        }
+      } catch (err) {
+        if (errEl) {
+          errEl.style.display = 'block';
+          errEl.textContent = err.message;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
