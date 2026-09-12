@@ -1,0 +1,182 @@
+[
+  {
+    "id": "iq-001",
+    "question_text": "How does the Java Garbage Collector handle circular object references between two unused objects in the heap?",
+    "role": "Backend Engineer",
+    "skill": "Java",
+    "difficulty": "hard",
+    "stage": "technical",
+    "company_tags": ["Google", "Amazon"],
+    "sample_criteria": "Candidate should explain Tracing Garbage Collection (GC Roots, Mark and Sweep) rather than simple reference counting, clarifying that unreachable circular graphs are collected."
+  },
+  {
+    "id": "iq-002",
+    "question_text": "In a distributed system, how would you design an idempotent API endpoint for payment processing to prevent double charging on network retries?",
+    "role": "Backend Engineer",
+    "skill": "Distributed Systems",
+    "difficulty": "hard",
+    "stage": "technical",
+    "company_tags": ["Stripe", "Amazon", "Uber"],
+    "sample_criteria": "Candidate should mention idempotency keys (UUIDs), distributed locks (Redis Redlock/database unique constraints), transaction statuses (INITIATED, SUCCESS, FAILED), and caching response payloads for identical keys."
+  },
+  {
+    "id": "iq-003",
+    "question_text": "Explain the difference between optimistic concurrency control and pessimistic locking in PostgreSQL. Under what transaction throughput conditions would you choose each?",
+    "role": "Backend Engineer",
+    "skill": "PostgreSQL",
+    "difficulty": "medium",
+    "stage": "technical",
+    "company_tags": ["Meta", "Amazon"],
+    "sample_criteria": "Candidate should define OCC (version/timestamp checks) vs Pessimistic (SELECT FOR UPDATE locks), noting OCC works best in low-contention high-throughput scenarios, while pessimistic is safer in high-contention balance deductions."
+  },
+  {
+    "id": "iq-004",
+    "question_text": "How does Python manage concurrency with the Global Interpreter Lock (GIL), and when should you use multiprocessing or asyncio instead of threading?",
+    "role": "Backend Engineer",
+    "skill": "Python",
+    "difficulty": "medium",
+    "stage": "technical",
+    "company_tags": ["Meta", "Startup"],
+    "sample_criteria": "GIL ensures only one thread executes bytecode at a time. I/O-bound tasks benefit from threading/asyncio; CPU-bound tasks require multiprocessing to leverage multiple CPU cores."
+  },
+  {
+    "id": "iq-005",
+    "question_text": "Explain how React 18 Concurrent Mode and the Fiber architecture prioritize user interactions over heavy background rendering.",
+    "role": "Frontend Engineer",
+    "skill": "React",
+    "difficulty": "hard",
+    "stage": "technical",
+    "company_tags": ["Meta", "Uber"],
+    "sample_criteria": "Fiber breaks rendering into interruptible units of work. Concurrent features (useTransition, useDeferredValue) allow urgent updates (typing/clicks) to interrupt non-urgent renders."
+  },
+  {
+    "id": "iq-006",
+    "question_text": "How would you optimize Web Vitals (specifically Largest Contentful Paint and Cumulative Layout Shift) on a Next.js e-commerce storefront?",
+    "role": "Frontend Engineer",
+    "skill": "Next.js",
+    "difficulty": "medium",
+    "stage": "technical",
+    "company_tags": ["Amazon", "Vercel", "Startup"],
+    "sample_criteria": "LCP: priority image loading (next/image), critical CSS inlining, edge SSR/ISR. CLS: explicit aspect ratio placeholders, font-display: swap with matched fallbacks, reserved banner heights."
+  },
+  {
+    "id": "iq-007",
+    "question_text": "What are the core tradeoffs between Server-Side Rendering (SSR), Static Site Generation (SSG), and Incremental Static Regeneration (ISR)?",
+    "role": "Frontend Engineer",
+    "skill": "Next.js",
+    "difficulty": "medium",
+    "stage": "technical",
+    "company_tags": ["Google", "Startup"],
+    "sample_criteria": "SSG gives fastest TTFB at build-time cost; SSR renders dynamic user-specific data per request with server latency; ISR periodically regenerates static pages in background on cache stale."
+  },
+  {
+    "id": "iq-008",
+    "question_text": "How does the Transformer attention mechanism compute query, key, and value matrices, and why is scaled dot-product attention preferred over additive attention?",
+    "role": "ML Engineer",
+    "skill": "Deep Learning",
+    "difficulty": "hard",
+    "stage": "technical",
+    "company_tags": ["Google", "Meta", "OpenAI"],
+    "sample_criteria": "Self-attention Q, K, V projections via learned weights. Softmax(QK^T / sqrt(d_k)) * V. Scaling factor prevents dot products from growing large where softmax gradients vanish."
+  },
+  {
+    "id": "iq-009",
+    "question_text": "What strategies do you use to mitigate hallucination and optimize retrieval latency in a production Retrieval-Augmented Generation (RAG) system?",
+    "role": "ML Engineer",
+    "skill": "RAG",
+    "difficulty": "hard",
+    "stage": "technical",
+    "company_tags": ["Google", "Microsoft", "Startup"],
+    "sample_criteria": "Chunking strategies (semantic/hierarchical), hybrid search (dense embeddings + BM25 keyword), re-ranking with cross-encoders, vector indexing (HNSW/IVFFlat), prompt grounding constraints, citation extraction."
+  },
+  {
+    "id": "iq-010",
+    "question_text": "How do you detect and handle data drift and concept drift in a live recommendation pipeline?",
+    "role": "ML Engineer",
+    "skill": "MLOps",
+    "difficulty": "medium",
+    "stage": "technical",
+    "company_tags": ["Netflix", "Meta"],
+    "sample_criteria": "Data drift: KS-test, Population Stability Index (PSI) on feature distributions. Concept drift: monitoring degradation in live ground-truth metrics (CTR, conversion). Triggers automated retraining workflows."
+  },
+  {
+    "id": "iq-011",
+    "question_text": "Walk me through how Kubernetes handles Pod evictions during high node memory pressure. What is the role of OOMScoreAdjust and QoS classes?",
+    "role": "DevOps Engineer",
+    "skill": "Kubernetes",
+    "difficulty": "hard",
+    "stage": "technical",
+    "company_tags": ["Google", "Amazon"],
+    "sample_criteria": "Kubelet evicts BestEffort pods first, then Burstable, and lastly Guaranteed pods. OOMScoreAdjust dictates kernel OOM killer priority when memory is exhausted."
+  },
+  {
+    "id": "iq-012",
+    "question_text": "How would you design a zero-downtime database migration schema change that renames a column on a table with 50 million rows?",
+    "role": "Fullstack Engineer",
+    "skill": "Database Architecture",
+    "difficulty": "hard",
+    "stage": "technical",
+    "company_tags": ["Stripe", "Uber", "Amazon"],
+    "sample_criteria": "Expand and Contract pattern: 1) Add new nullable column, 2) Dual-write to both columns in application code, 3) Backfill historical data in batches, 4) Switch reads to new column, 5) Remove old writes and drop column."
+  },
+  {
+    "id": "iq-013",
+    "question_text": "Walk me through the architecture of a major project listed on your resume. What was the single biggest technical bottleneck you encountered, and how did you resolve it?",
+    "role": "Fullstack Engineer",
+    "skill": "System Architecture",
+    "difficulty": "medium",
+    "stage": "project_defense",
+    "company_tags": ["Google", "Amazon", "Meta"],
+    "sample_criteria": "Candidate should articulate clear components (clients, gateway, services, data store), quantify throughput/scale, identify concrete bottleneck (e.g. N+1 queries, lock contention, network I/O), and explain measured fix."
+  },
+  {
+    "id": "iq-014",
+    "question_text": "In your project, what specific technical tradeoff did you make between consistency and availability, or performance vs maintainability? If you rebuilt it today, what would you change?",
+    "role": "Fullstack Engineer",
+    "skill": "Technical Decision Making",
+    "difficulty": "hard",
+    "stage": "project_defense",
+    "company_tags": ["Amazon", "Stripe"],
+    "sample_criteria": "Candidate must demonstrate genuine self-critique, explain why an alternative was rejected at the time, and how architectural debt was managed."
+  },
+  {
+    "id": "iq-015",
+    "question_text": "Tell me about a time when you had a technical disagreement with a team member or senior engineer about an architectural approach. How did you resolve it?",
+    "role": "General",
+    "skill": "Communication & Conflict",
+    "difficulty": "medium",
+    "stage": "hr",
+    "company_tags": ["Amazon", "Google", "Meta"],
+    "sample_criteria": "STAR format: Situation, Task, Action (data-driven prototyping, objective benchmark comparison, active listening), Result (aligned outcome, respectful consensus, successful launch)."
+  },
+  {
+    "id": "iq-016",
+    "question_text": "Describe a scenario where a production deployment caused a critical outage. How did you triage, communicate, and implement root-cause prevention?",
+    "role": "General",
+    "skill": "Incident Response & Ownership",
+    "difficulty": "medium",
+    "stage": "hr",
+    "company_tags": ["Amazon", "Uber"],
+    "sample_criteria": "STAR format: Focus on fast rollback/mitigation first, clear stakeholder communication, blameless post-mortem, and automated preventative guardrails (e.g., canary deploys, automated smoke tests)."
+  },
+  {
+    "id": "iq-017",
+    "question_text": "A train leaves station A at 60 km/h. Two hours later, another train leaves station A at 90 km/h on a parallel track. How many hours after the second train departs will it overtake the first train?",
+    "role": "General",
+    "skill": "Speed, Distance & Time",
+    "difficulty": "easy",
+    "stage": "aptitude",
+    "company_tags": ["General"],
+    "sample_criteria": "In 2 hours, Train 1 covers 120 km. Relative speed = 90 - 60 = 30 km/h. Time to overtake = 120 / 30 = 4 hours."
+  },
+  {
+    "id": "iq-018",
+    "question_text": "Five people (A, B, C, D, E) sit in a row. A is not next to B, C is next to D, and E is at the left end. If B is in the middle, who must be at the right end?",
+    "role": "General",
+    "skill": "Logical Deduction",
+    "difficulty": "medium",
+    "stage": "aptitude",
+    "company_tags": ["General"],
+    "sample_criteria": "Positions 1 to 5. E is at 1 (E, _, B, _, _). C and D are adjacent, so they must occupy either (3,4) or (4,5). Since B is at 3, C and D must be at (4,5) or (1,2 is impossible since E is 1). So positions: E (1), A (2), B (3), C/D (4,5). A is at 2, not next to B (Wait, 2 is next to 3). Therefore C and D must be at 2 and 4, or A at 5. If A is at 5, C and D are at 2 and 4 (not adjacent). Hence C, D at 4,5. Right end is C or D."
+  }
+]

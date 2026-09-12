@@ -1,0 +1,88 @@
+[
+  {
+    "id": "jd-001",
+    "role_title": "Senior Backend Engineer",
+    "domain": "FinTech / Distributed Systems",
+    "seniority": "senior",
+    "raw_text": "We are seeking a Senior Backend Engineer to architect high-throughput transactional payment systems. You will design distributed microservices, optimize PostgreSQL database queries, implement caching layers with Redis, and ensure fault-tolerant idempotency. Requires 4+ years experience with Python, FastAPI/Flask or Go, PostgreSQL, Docker, and AWS.",
+    "required_skills": ["Python", "FastAPI", "PostgreSQL", "Docker", "REST API", "Microservices"],
+    "preferred_skills": ["Redis", "AWS", "Kubernetes", "Kafka", "CI/CD"],
+    "core_responsibilities": [
+      "Architect and scale distributed payment transaction microservices handling 10k+ requests/sec.",
+      "Design zero-downtime database migrations on PostgreSQL clusters.",
+      "Ensure high reliability, idempotency, and sub-50ms API response times."
+    ],
+    "importance_weights": {
+      "Python": 0.25,
+      "PostgreSQL": 0.20,
+      "Microservices": 0.20,
+      "REST API": 0.15,
+      "Docker": 0.10,
+      "AWS": 0.10
+    }
+  },
+  {
+    "id": "jd-002",
+    "role_title": "Fullstack Software Engineer",
+    "domain": "Enterprise SaaS / AI Platform",
+    "seniority": "mid",
+    "raw_text": "HireMind is looking for a Fullstack Engineer to develop generative AI workflows and modern web dashboards. You will build responsive React/Next.js frontends, write clean Python/Flask backends, integrate LLM APIs (Gemini/OpenAI), and implement vector search with pgvector.",
+    "required_skills": ["Python", "Flask", "React", "JavaScript", "PostgreSQL", "REST API"],
+    "preferred_skills": ["Next.js", "TypeScript", "pgvector", "Docker", "CSS3", "Tailwind CSS"],
+    "core_responsibilities": [
+      "Develop interactive web interfaces using modern component architectures.",
+      "Build scalable RESTful API endpoints and integrate generative AI agents.",
+      "Optimize end-to-end user latency from frontend rendering to database retrieval."
+    ],
+    "importance_weights": {
+      "React": 0.25,
+      "Python": 0.25,
+      "PostgreSQL": 0.15,
+      "REST API": 0.15,
+      "JavaScript": 0.10,
+      "Docker": 0.10
+    }
+  },
+  {
+    "id": "jd-003",
+    "role_title": "AI / Machine Learning Engineer",
+    "domain": "Applied AI / LLMs",
+    "seniority": "mid",
+    "raw_text": "Join our AI Platform team to build production-grade Retrieval-Augmented Generation (RAG) pipelines and multi-agent systems. You will work with PyTorch, vector databases (pgvector), embedding models, evaluation benchmarks, and MLOps deployment pipelines.",
+    "required_skills": ["Python", "PyTorch", "Retrieval-Augmented Generation (RAG)", "Embeddings", "pgvector"],
+    "preferred_skills": ["FastAPI", "Docker", "Transformers", "LangChain", "Kubernetes", "MLOps"],
+    "core_responsibilities": [
+      "Implement dense vector retrieval pipelines and optimize cosine similarity search.",
+      "Evaluate LLM output quality, hallucination rates, and inference latency.",
+      "Collaborate with backend engineers to deploy robust agentic AI microservices."
+    ],
+    "importance_weights": {
+      "Python": 0.25,
+      "PyTorch": 0.20,
+      "Retrieval-Augmented Generation (RAG)": 0.25,
+      "pgvector": 0.15,
+      "Docker": 0.15
+    }
+  },
+  {
+    "id": "jd-004",
+    "role_title": "Frontend Software Engineer",
+    "domain": "E-Commerce / Consumer Web",
+    "seniority": "mid",
+    "raw_text": "Looking for a Frontend Engineer passionate about web performance, animations, and clean design systems. Must have deep expertise in React 18, Next.js, TypeScript, responsive CSS, and Core Web Vitals optimization.",
+    "required_skills": ["React", "JavaScript", "TypeScript", "Next.js", "CSS3", "HTML5"],
+    "preferred_skills": ["GraphQL", "Tailwind CSS", "Web Vitals", "Jest", "Figma"],
+    "core_responsibilities": [
+      "Build high-performance web components with sub-second page loads.",
+      "Implement design system tokens, responsive layouts, and accessible UI.",
+      "Monitor and optimize Largest Contentful Paint (LCP) and Cumulative Layout Shift (CLS)."
+    ],
+    "importance_weights": {
+      "React": 0.30,
+      "TypeScript": 0.20,
+      "Next.js": 0.20,
+      "CSS3": 0.15,
+      "JavaScript": 0.15
+    }
+  }
+]

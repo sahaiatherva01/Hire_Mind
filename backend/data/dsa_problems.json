@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "title": "Two Sum",
+    "difficulty": "easy",
+    "topic": "arrays / hashing",
+    "statement": "Given an array of integers `nums` and an integer `target`, return the indices of the two numbers such that they add up to `target`. Assume exactly one solution exists, and you may not use the same element twice.",
+    "function_signature": "def two_sum(nums, target):",
+    "starter_code": "def two_sum(nums, target):\n    # Return a list of two indices [i, j]\n    pass\n",
+    "examples": [
+      {"input": "nums = [2,7,11,15], target = 9", "output": "[0,1]"},
+      {"input": "nums = [3,2,4], target = 6", "output": "[1,2]"}
+    ],
+    "public_tests": [
+      {"input": {"nums": [2, 7, 11, 15], "target": 9}, "expected": [0, 1]},
+      {"input": {"nums": [3, 2, 4], "target": 6}, "expected": [1, 2]}
+    ],
+    "hidden_tests": [
+      {"input": {"nums": [3, 3], "target": 6}, "expected": [0, 1]},
+      {"input": {"nums": [1, 2, 3, 4, 5], "target": 9}, "expected": [3, 4]},
+      {"input": {"nums": [-3, 4, 3, 90], "target": 0}, "expected": [0, 2]}
+    ],
+    "time_limit_seconds": 900
+  },
+  {
+    "id": 2,
+    "title": "Valid Parentheses",
+    "difficulty": "easy",
+    "topic": "stacks",
+    "statement": "Given a string `s` containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid (every opening bracket is closed by the same type of bracket, in the correct order).",
+    "function_signature": "def is_valid(s):",
+    "starter_code": "def is_valid(s):\n    # Return True or False\n    pass\n",
+    "examples": [
+      {"input": "s = \"()[]{}\"", "output": "True"},
+      {"input": "s = \"(]\"", "output": "False"}
+    ],
+    "public_tests": [
+      {"input": {"s": "()[]{}"}, "expected": true},
+      {"input": {"s": "(]"}, "expected": false}
+    ],
+    "hidden_tests": [
+      {"input": {"s": "([{}])"}, "expected": true},
+      {"input": {"s": "((("}, "expected": false},
+      {"input": {"s": ""}, "expected": true}
+    ],
+    "time_limit_seconds": 600
+  },
+  {
+    "id": 3,
+    "title": "Longest Common Subsequence",
+    "difficulty": "medium",
+    "topic": "dynamic programming",
+    "statement": "Given two strings `text1` and `text2`, return the length of their longest common subsequence. If there is no common subsequence, return 0.",
+    "function_signature": "def longest_common_subsequence(text1, text2):",
+    "starter_code": "def longest_common_subsequence(text1, text2):\n    # Return an integer length\n    pass\n",
+    "examples": [
+      {"input": "text1 = \"abcde\", text2 = \"ace\"", "output": "3"}
+    ],
+    "public_tests": [
+      {"input": {"text1": "abcde", "text2": "ace"}, "expected": 3},
+      {"input": {"text1": "abc", "text2": "abc"}, "expected": 3}
+    ],
+    "hidden_tests": [
+      {"input": {"text1": "abc", "text2": "def"}, "expected": 0},
+      {"input": {"text1": "bsbininm", "text2": "jmjkbkjkv"}, "expected": 1},
+      {"input": {"text1": "", "text2": "abc"}, "expected": 0}
+    ],
+    "time_limit_seconds": 1500
+  },
+  {
+    "id": 4,
+    "title": "Binary Tree Level Order Traversal",
+    "difficulty": "medium",
+    "topic": "trees / bfs",
+    "statement": "Given the root of a binary tree represented as a nested list [val, left, right] (null for absent), return its level order traversal as a list of lists.",
+    "function_signature": "def level_order(tree):",
+    "starter_code": "def level_order(tree):\n    # tree is like [3,[9,None,None],[20,[15,None,None],[7,None,None]]]\n    # Return list of lists, e.g. [[3],[9,20],[15,7]]\n    pass\n",
+    "examples": [
+      {"input": "tree = [3,[9,None,None],[20,[15,None,None],[7,None,None]]]", "output": "[[3],[9,20],[15,7]]"}
+    ],
+    "public_tests": [
+      {"input": {"tree": [3, [9, null, null], [20, [15, null, null], [7, null, null]]]}, "expected": [[3], [9, 20], [15, 7]]}
+    ],
+    "hidden_tests": [
+      {"input": {"tree": [1, null, null]}, "expected": [[1]]},
+      {"input": {"tree": null}, "expected": []}
+    ],
+    "time_limit_seconds": 1500
+  }
+]
