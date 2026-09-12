@@ -7,7 +7,7 @@ import io
 
 def extract_contact_info(text: str) -> Dict[str, Any]:
     email_match = re.search(r"[\w\.-]+@[\w\.-]+\.\w+", text)
-    phone_match = re.search(r"(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}", text)
+    phone_match = re.search(r"(?:\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{3,4}", text)
     linkedin_match = re.search(r"linkedin\.com/in/[\w\-]+", text, re.IGNORECASE)
     github_match = re.search(r"github\.com/[\w\-]+", text, re.IGNORECASE)
 

@@ -38,15 +38,18 @@ def _load_and_index_collection(collection_name: str) -> List[Dict[str, Any]]:
         if collection_name == "kb_interview_questions":
             search_str = f"{item.get('question_text', '')} Role: {item.get('role', '')} Skill: {item.get('skill', '')} Stage: {item.get('stage', '')}"
         elif collection_name == "kb_skills_taxonomy":
+            name = item.get("canonical_skill") or item.get("canonical_name", "")
             synonyms = ", ".join(item.get("synonyms", []))
-            adj = ", ".join([f"{k}:{v}" for k, v in item.get("adjacencies", {}).items()])
-            search_str = f"{item.get('canonical_name', '')} Category: {item.get('category', '')} Synonyms: {synonyms} Related: {adj}"
+            adj = ", ".join([f"{k}:{v}" for k, v in item.get("adjacent_skills", {}).items()])
+            search_str = f"{name} Category: {item.get('category', '')} Synonyms: {synonyms} Related: {adj} Description: {item.get('description', '')}"
         elif collection_name == "kb_jd_corpus":
+            title = item.get("role_title") or item.get("title", "")
             skills = ", ".join(item.get("required_skills", []))
-            search_str = f"{item.get('title', '')} Seniority: {item.get('seniority', '')} Skills: {skills} Description: {item.get('description', '')}"
+            search_str = f"{title} Seniority: {item.get('seniority', '')} Skills: {skills} Description: {item.get('raw_text', '')}"
         elif collection_name == "kb_resume_best_practices":
-            ex = " | ".join(item.get("good_examples", []))
-            search_str = f"{item.get('rule_title', '')} Category: {item.get('category', '')} Guidance: {item.get('guidance', '')} Examples: {ex}"
+            desc = item.get("rule_description") or item.get("guidance", "")
+            after = item.get("after_example", "")
+            search_str = f"{desc} Category: {item.get('category', '')} Example: {after} Impact: {item.get('impact_explanation', '')}"
         elif collection_name == "kb_company_interview_style":
             rubric = ", ".join(item.get("culture_principles", []))
             search_str = f"{item.get('company_name', '')} Culture Principles: {rubric}"
@@ -67,20 +70,25 @@ def _load_and_index_collection(collection_name: str) -> List[Dict[str, Any]]:
 
 
 def retrieve(
-    query_or_embedding: Union[str, List[float]],
-    collection: str,
+    query_or_embedding: Optional[Union[str, List[float]]] = None,
+    collection: str = "kb_interview_questions",
     top_k: int = 3,
-    filter_criteria: Optional[Dict[str, Any]] = None
+    filter_criteria: Optional[Dict[str, Any]] = None,
+    query: Optional[Union[str, List[float]]] = None
 ) -> List[Dict[str, Any]]:
     """
     Shared RAG retrieval across all modules.
     Executes Supabase pgvector RPC if available, or local cosine similarity calculation.
     """
-    if isinstance(query_or_embedding, str):
-        query_text = query_or_embedding
+    effective_query = query_or_embedding if query_or_embedding is not None else query
+    if effective_query is None:
+        return []
+
+    if isinstance(effective_query, str):
+        query_text = effective_query
         query_embedding = embed_text(query_text)
     else:
-        query_embedding = query_or_embedding
+        query_embedding = effective_query
         query_text = ""
 
     # 1. Supabase pgvector RPC query when online
@@ -152,8 +160,11 @@ def retrieve(
 
         content_str = (
             item.get("question_text") or
+            item.get("canonical_skill") or
             item.get("canonical_name") or
+            item.get("role_title") or
             item.get("title") or
+            item.get("rule_description") or
             item.get("rule_title") or
             item.get("company_name") or
             item.get("_search_text", "")
